@@ -1,0 +1,71 @@
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <mat-card class="midcard">
+  	<mat-card-header>
+    <mat-card-title>{{dataServ.selectedQmgr}}</mat-card-title>
+    <mat-card-subtitle>Subscription List information</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="td-container" [hidden]="this.dataServ.dataerr">
+    <div style="justify-content: flex-end;display: flex;">
+      <table cellpadding="0" cellspacing="0" style="width:180px">
+        <tr>
+          <td style="border-right: 0px!important;">
+            <mat-form-field>
+            <mat-label>System objects</mat-label>
+            <mat-select (selectionChange)="dataServ.sublist=[];dataServ.systemobj=$event.value;getSUBL()">
+              <mat-option value="no">No</mat-option>
+              <mat-option value="yes">Yes</mat-option>
+            </mat-select>
+            </mat-form-field>
+        </td>
+        <td style="border-right: 0px!important;">
+          <button mat-button (click)="ExportTOExcel()">Export</button>
+        </td>
+        <td style="border-right: 0px!important;">
+          <button mat-button (click)="dataServ.sublist=[];getSUBL()">Refresh</button>
+        </td>
+        </tr>
+      </table>
+</div><br>
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+    <table #CHLSort="matSort" mat-table [dataSource]="dataSourceSUBL" matSort>
+      <ng-container matColumnDef="sub">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-align-center"> Subscription </th>
+        <td mat-cell *matCellDef="let element"> {{element.sub}} </td>
+      </ng-container>
+      <ng-container matColumnDef="topicstr">
+        <th mat-header-cell *matHeaderCellDef class="header-align-center"> Topic String </th>
+        <td mat-cell *matCellDef="let element"> {{element.topicstr}} </td>
+      </ng-container>
+      <ng-container matColumnDef="topicobj">
+        <th mat-header-cell *matHeaderCellDef class="header-align-center"> Topic Object </th>
+        <td mat-cell *matCellDef="let element"> {{element.topicobj}} </td>
+      </ng-container>
+      <ng-container matColumnDef="dest">
+        <th *matHeaderCellDef mat-header-cell class="header-align-center"> Destination</th>
+        <td *matCellDef="let element" mat-cell> {{element.dest}} </td>
+      </ng-container>
+      <ng-container matColumnDef="destqmgr">
+        <th *matHeaderCellDef mat-header-cell class="header-align-center"> Destination QMGR</th>
+        <td *matCellDef="let element" mat-cell> {{element.destqmgr}} </td>
+      </ng-container>
+      <ng-container matColumnDef="selector">
+        <th *matHeaderCellDef mat-header-cell class="header-align-center"> Selector</th>
+        <td *matCellDef="let element" mat-cell> {{element.selector}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedSUBLColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedSUBLColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+    <mat-card-content class="td-container"><br>
+    <div class="alert alert-danger" *ngIf="this.dataServ.dataerr">
+      <h4>Problem occured while establishing connecting to <b>{{dataServ.selectedQmgr}}</b>.<hr>
+      Please check the connection parameters, if the server is available, if the Qmanager is available or if you have opened firewall to the listener port.</h4>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
+</div>

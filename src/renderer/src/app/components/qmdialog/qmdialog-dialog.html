@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>Add new Qmanager</h2>
+<mat-dialog-content class="mat-typography middialog" [formGroup]="qmForm">
+
+     <mat-form-field>
+          <input matInput class="form-control" placeholder="Group" required  formControlName="group" name='group'>
+           <mat-error *ngIf="hasError('group', 'required')">should not be empty</mat-error>
+           <mat-hint align="end">Prod, Test, QMGRGROUP1</mat-hint>
+     </mat-form-field>
+   <mat-form-field>
+        <input matInput class="form-control" placeholder="Qmanager name" required  formControlName="name" name='name'>
+         <mat-error *ngIf="hasError('name', 'required')">Min length must be 6</mat-error>
+    </mat-form-field>
+ <mat-form-field>
+        <input matInput class="form-control" placeholder="Qmanager hostname" required formControlName="hostname" name='hostname'>
+         <mat-error *ngIf="hasError('hostname', 'required')">Min length must be 6</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+     <input matInput class="form-control" type="number" placeholder="Qmanager port" required formControlName="port" name='port'>
+      <mat-error *ngIf="hasError('port', 'required')">should not be empty</mat-error>
+ </mat-form-field>
+ <mat-form-field>
+     <input matInput class="form-control" placeholder="Qmanager channel" required formControlName="channel" name='channel'>
+      <mat-error *ngIf="hasError('channel', 'required')">should not be empty</mat-error>
+ </mat-form-field>
+ <mat-form-field>
+     <mat-select matInput class="form-control" placeholder="SSL" formControlName="ssl" #ssl name='ssl'>
+          <mat-option value="">No</mat-option>
+          <mat-option value="yes">Yes</mat-option>
+     </mat-select>
+   </mat-form-field>
+   <mat-form-field *ngIf="ssl.value == 'yes'">
+     <input matInput class="form-control" placeholder="SSL Key" formControlName="sslkey" name='sslkey'>
+     <mat-hint align="end">c:\key.jks</mat-hint>
+</mat-form-field>
+ <mat-form-field *ngIf="ssl.value == 'yes'">
+     <input matInput class="form-control" placeholder="SSL Key password" formControlName="sslpass" name='sslpass'>
+     <mat-hint align="end">123456</mat-hint>
+</mat-form-field>
+ <mat-form-field *ngIf="ssl.value == 'yes'">
+     <input matInput class="form-control" placeholder="SSL Cipher" formControlName="sslcipher" name='sslcipher'>
+     <mat-hint align="end">TLS_RSA_WITH_AES_256_GCM_SHA384</mat-hint>
+</mat-form-field>
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" [disabled]="!qmForm.valid" (click)="createQM()">Add</button>
+</mat-dialog-actions>

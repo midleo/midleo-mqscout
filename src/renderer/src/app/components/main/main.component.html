@@ -1,0 +1,38 @@
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <mat-card class="midcard" *ngIf="!this.dataServ.loadthis">
+  	<mat-card-header>
+    <mat-card-title>Welcome to MidlEO</mat-card-title>
+    <mat-card-subtitle>Middleware Enterprise Organizer</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          Add new qmanager and write down all the details for the connection
+        </mat-expansion-panel-header>
+        <img src="../assets/1.jpg" width="700" height="535" />
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          Select from the menu the desired Qmanager
+        </mat-expansion-panel-header>
+        <img src="../assets/3.jpg" width="700" height="535" />
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          Browse the attributes for the Qmanager, Queues, Channels, Authority, Subscriptions, Topics
+        </mat-expansion-panel-header>
+        <img src="../assets/3.jpg" width="700" height="535" />
+      </mat-expansion-panel>
+    </mat-accordion>
+    <br><br><br><br>
+  </mat-card-content>
+</mat-card>
+<mat-card *ngIf="this.dataServ.loadthis"
+   style="display: flex; justify-content: center; align-items: center">
+  <mat-progress-spinner
+    color="primary"
+    mode="indeterminate">
+  </mat-progress-spinner>
+</mat-card>
+</div>

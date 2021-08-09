@@ -1,0 +1,100 @@
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <mat-card class="midcard">
+  	<mat-card-header>
+    <mat-card-title>{{dataServ.selectedQmgr}}</mat-card-title>
+    <mat-card-subtitle>Queue list</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="td-container" [hidden]="this.dataServ.dataerr">
+    <div style="justify-content: flex-end;display: flex;">
+      <table cellpadding="0" cellspacing="0" style="width:250px">
+        <tr>
+          <td style="border-right: 0px!important;">
+            <mat-form-field>
+            <mat-label>System objects</mat-label>
+            <mat-select (selectionChange)="dataServ.qlist=[];dataServ.systemobj=$event.value;getQL()">
+              <mat-option value="no">No</mat-option>
+              <mat-option value="yes">Yes</mat-option>
+            </mat-select>
+            </mat-form-field>
+        </td>
+        <td style="border-right: 0px!important;">
+          <mat-form-field>
+            <mat-label>Empty objects</mat-label>
+            <mat-select (selectionChange)="dataServ.qlist=[];dataServ.emptyobj=$event.value;getQL()">
+              <mat-option value="no">No</mat-option>
+              <mat-option value="yes">Yes</mat-option>
+            </mat-select>
+            </mat-form-field>
+        </td>
+        <td style="border-right: 0px!important;">
+          <button mat-button (click)="ExportTOExcel()">Export</button>
+        </td>
+        <td style="border-right: 0px!important;">
+          <button mat-button (click)="dataServ.qlist=[];getQL()">Refresh</button>
+        </td>
+        </tr>
+      </table>
+</div><br>
+    <mat-form-field>
+      <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Search Queue">
+    </mat-form-field>
+    <table #QLSort="matSort" [dataSource]="dataSourceQL" mat-table matSort>
+      <ng-container matColumnDef="name" sticky>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header class="header-align-center"> Name</th>
+      <td *matCellDef="let element" mat-cell> {{element.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="type">
+      <th *matHeaderCellDef mat-header-cell class="header-align-center"> Type</th>
+      <td *matCellDef="let element" mat-cell> {{element.type}} </td>
+      </ng-container>
+      <ng-container matColumnDef="crdate">
+        <th *matHeaderCellDef mat-header-cell class="header-align-center"> CRDATE</th>
+        <td *matCellDef="let element" mat-cell> {{element.crdate}} </td>
+      </ng-container>
+      <ng-container matColumnDef="crtime">
+        <th *matHeaderCellDef mat-header-cell class="header-align-center"> CRTIME</th>
+        <td *matCellDef="let element" mat-cell> {{element.crtime}} </td>
+      </ng-container>
+      <ng-container matColumnDef="depth">
+        <th *matHeaderCellDef mat-header-cell class="header-align-center"> DEPTH</th>
+        <td *matCellDef="let element" mat-cell> {{element.depth}} </td>
+      </ng-container>
+      <ng-container matColumnDef="maxdepth">
+        <th *matHeaderCellDef mat-header-cell class="header-align-center"> MAXDEPTH</th>
+        <td *matCellDef="let element" mat-cell> {{element.maxdepth}} </td>
+      </ng-container>
+      <ng-container matColumnDef="maxmsgl">
+        <th *matHeaderCellDef mat-header-cell class="header-align-center"> MAXMSGL</th>
+        <td *matCellDef="let element" mat-cell> {{element.maxmsgl}} </td>
+      </ng-container>
+      <ng-container matColumnDef="defbind">
+        <th *matHeaderCellDef mat-header-cell class="header-align-center"> DEFBIND</th>
+        <td *matCellDef="let element" mat-cell> {{element.defbind}} </td>
+      </ng-container>
+      <ng-container matColumnDef="altdate">
+        <th *matHeaderCellDef mat-header-cell class="header-align-center"> ALTDATE</th>
+        <td *matCellDef="let element" mat-cell> {{element.altdate}} </td>
+      </ng-container>
+      <ng-container matColumnDef="alttime">
+        <th *matHeaderCellDef mat-header-cell class="header-align-center"> ALTTIME</th>
+        <td *matCellDef="let element" mat-cell> {{element.alttime}} </td>
+      </ng-container>
+      <ng-container matColumnDef="actions" stickyEnd>
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button (click)="openQIDialog(element.objkey)">View</button>
+        </td>
+      </ng-container>
+      <tr *matHeaderRowDef="displayedQLColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedQLColumns;" mat-row></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </mat-card-content>
+  <mat-card-content class="td-container" *ngIf="this.dataServ.dataerr"><br>
+    <div class="alert alert-danger" >
+      <h4>Problem occured while establishing connecting to <b>{{dataServ.selectedQmgr}}</b>.<hr>
+      Please check the connection parameters, if the server is available, if the Qmanager is available or if you have opened firewall to the listener port.</h4>
+    </div>
+  </mat-card-content>
+</mat-card>
+</div>

@@ -1,0 +1,77 @@
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <mat-card class="midcard">
+  	<mat-card-header>
+    <mat-card-title>{{dataServ.selectedQmgr}}</mat-card-title>
+    <mat-card-subtitle>Channel List information</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="td-container" [hidden]="this.dataServ.dataerr">
+    <div style="justify-content: flex-end;display: flex;">
+      <table cellpadding="0" cellspacing="0" style="width:250px">
+        <tr>
+          <td style="border-right: 0px!important;">
+            <mat-form-field>
+            <mat-label>System objects</mat-label>
+            <mat-select (selectionChange)="dataServ.chlist=[];dataServ.systemobj=$event.value;getCHL()">
+              <mat-option value="no">No</mat-option>
+              <mat-option value="yes">Yes</mat-option>
+            </mat-select>
+            </mat-form-field>
+        </td>
+        <td style="border-right: 0px!important;">
+          <mat-form-field>
+            <mat-label>Empty objects</mat-label>
+            <mat-select (selectionChange)="dataServ.chlist=[];dataServ.emptyobj=$event.value;getCHL()">
+              <mat-option value="no">No</mat-option>
+              <mat-option value="yes">Yes</mat-option>
+            </mat-select>
+            </mat-form-field>
+        </td>
+        <td style="border-right: 0px!important;">
+          <button mat-button (click)="ExportTOExcel()">Export</button>
+        </td>
+        <td style="border-right: 0px!important;">
+          <button mat-button (click)="dataServ.chlist=[];getCHL()">Refresh</button>
+        </td>
+        </tr>
+      </table>
+</div><br>
+
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+
+
+    <table #CHLSort="matSort" mat-table [dataSource]="dataSourceCHL" matSort>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-align-center"> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef class="header-align-center"> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+      </ng-container>
+      <ng-container matColumnDef="mca">
+        <th mat-header-cell *matHeaderCellDef class="header-align-center"> MCA User </th>
+        <td mat-cell *matCellDef="let element"> {{element.mca}} </td>
+      </ng-container>
+      <ng-container matColumnDef="altdate">
+        <th *matHeaderCellDef mat-header-cell class="header-align-center"> ALTDATE</th>
+        <td *matCellDef="let element" mat-cell> {{element.altdate}} </td>
+      </ng-container>
+      <ng-container matColumnDef="alttime">
+        <th *matHeaderCellDef mat-header-cell class="header-align-center"> ALTTIME</th>
+        <td *matCellDef="let element" mat-cell> {{element.alttime}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedCHLColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedCHLColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+    <mat-card-content class="td-container" *ngIf="this.dataServ.dataerr"><br>
+    <div class="alert alert-danger">
+      <h4>Problem occured while establishing connecting to <b>{{dataServ.selectedQmgr}}</b>.<hr>
+      Please check the connection parameters, if the server is available, if the Qmanager is available or if you have opened firewall to the listener port.</h4>
+    </div>
+  </mat-card-content>
+</mat-card>
+</div>

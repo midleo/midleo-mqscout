@@ -1,0 +1,30 @@
+<div class="container">
+<mat-toolbar color="primary" class="toolbar">
+    <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    <h1 class="app-name">
+      <a href="https://midleo.com/?" target="_blank">
+        <img src="assets/midleo-logo-white.png" alt="Midleo MQScout" style="height:55px;">
+        <span>{{title}}</span>
+      </a>
+    </h1>
+    <span class="fill-remaining-space"></span>
+    <span>
+      <a mat-button (click)="openQMDialog()">Add new QM</a>&nbsp;&nbsp;
+    </span>
+    <span>
+     <a mat-icon-button title="Light theme" aria-label="Light theme" (click)="onSetTheme('midleo-light-theme')"><mat-icon>wb_sunny</mat-icon></a>
+     <a mat-icon-button title="Dark theme" aria-label="Dark theme" (click)="onSetTheme('midleo-dark-theme')"><mat-icon>brightness_2</mat-icon></a>
+    </span>
+</mat-toolbar>
+<mat-sidenav-container class="sidenav-container" >
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" [opened]="true">
+      <mat-nav-list [style.marginTop.px]="40">
+        <app-menu-list-item *ngFor="let item of dataServ.arrQMGR | keyvalue" [item]="item.value" [itemkey]="item.key"></app-menu-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
