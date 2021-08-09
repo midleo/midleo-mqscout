@@ -11,7 +11,7 @@ $midleo-primary: (
     200 : #87c9dc,
     300 : #57b3cd,
     400 : #33a2c3,
-    500 : #29b6f6,
+    500 : #31353d,
     600 : #0d8ab1,
     700 : #0b7fa8,
     800 : #0875a0,
@@ -44,7 +44,7 @@ $midleo-accent: (
     200 : #80e6ff,
     300 : #4ddbff,
     400 : #26d4ff,
-    500 : #00ccff,
+    500 : #31353d,
     600 : #00c7ff,
     700 : #00c0ff,
     800 : #00b9ff,
@@ -79,7 +79,7 @@ $midleo-theme: mat-light-theme($midleo-theme-primary, $midleo-theme-accent, $mid
 
 @include angular-material-theme($midleo-theme);
 
-$dark-primary: mat-palette($mat-blue-grey);
+$dark-primary: mat-palette($midleo-accent);
 $dark-accent:  mat-palette($mat-amber, A200, A100, A400);
 $dark-warn:    mat-palette($mat-deep-orange);
 $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);

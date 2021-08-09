@@ -24,6 +24,7 @@ function createWindow() {
     width: 1200,
     height: 800,
     backgroundColor: '#fcf9f9',
+    fullscreen: true,
     icon: path.join(__dirname, 'assets/midleo-logo-white.png') ,
     webPreferences: {
       nodeIntegration: true,
@@ -56,7 +57,7 @@ ipcMain.on('readQMList', () => {
 });
 
 ipcMain.on('execPCFQD', (event, arg) => {
-  const childPorcess = exec('java -jar ' + path.join(_APPHOME_, 'midleoapp.jar') + ' ' + arg, (err, stdout, stderr) => {
+  const childPorcess = exec('java -jar ' + path.join(app.getAppPath(), 'dist/renderer/assets', 'midleoapp.jar') + ' ' + arg, (err, stdout, stderr) => {
     if (err) {
       event.returnValue = stderr;
     }
