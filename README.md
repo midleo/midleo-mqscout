@@ -14,6 +14,14 @@ $ npm run build:dev:all
 $ npm start
 ```
 
+## Take a look
+
+Some screenshots from the Midleo MQScout:
+
+### New qmmanager definition
+![The Midleo mqscout app](https://gitlab.com/midleo/midleo-mqscout/-/raw/master/gitlab.assets/mqscout_browse.jpg)
+
+
 ## NPM scripts
 
 ### Builds
