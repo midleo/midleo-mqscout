@@ -7,7 +7,7 @@ Source code for MQScout - Explorer for IBM Mq server
 
 
 ```bash
-$ git clone https://gitlab.com/midleo/midleo-mqscout.git
+$ git clone https://github.com/midleo/midleo-mqscout.git
 $ cd midleo-mqscout
 $ npm install
 $ npm run build:dev:all
@@ -19,7 +19,7 @@ $ npm start
 Some screenshots from the Midleo MQScout:
 
 ### New qmmanager definition
-![The Midleo mqscout app](https://gitlab.com/midleo/midleo-mqscout/-/raw/master/gitlab.assets/mqscout_browse.jpg)
+![The Midleo mqscout app](https://github.com/midleo/midleo-mqscout/blob/master/github.assets/mqscout_browse.jpg?raw=true)
 
 
 ## NPM scripts
