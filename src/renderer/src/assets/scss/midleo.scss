@@ -90,7 +90,6 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 }
 .midleo-light-theme {
   --border-color: rgba(0,0,0,.2);
-  @include angular-material-theme($midleo-theme);
 }
 .alert{position:relative;padding:.75rem 1.25rem;margin-bottom:1rem;border:1px solid transparent;border-radius:.25rem}
 .alert-heading{color:inherit}

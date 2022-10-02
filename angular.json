@@ -45,7 +45,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": false,
@@ -100,7 +99,7 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-devkit/build-angular:eslint",
           "options": {
             "tsConfig": [
               "src/renderer/tsconfig.app.json",
@@ -111,22 +110,9 @@
               "**/node_modules/**"
             ]
           }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "src/renderer/e2e/protractor.conf.js",
-            "devServerTarget": "renderer:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "renderer:serve:production"
-            }
-          }
         }
       }
     }},
-  "defaultProject": "renderer",
   "cli": {
     "analytics": false
   }

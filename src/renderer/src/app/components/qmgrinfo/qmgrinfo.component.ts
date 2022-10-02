@@ -62,7 +62,6 @@ export class QMGRInfoComponent implements OnInit, OnDestroy {
       this.dataServ.dataerr = true;
     }
     if (qmreply.qmgr) {
-    // tslint:disable-next-line: forin
     for (const property in qmreply.qmgr) {
       this.dataServ.qmgrdata.push({
         qmgrattr: property,
@@ -71,7 +70,6 @@ export class QMGRInfoComponent implements OnInit, OnDestroy {
      }
     } else { this.dataServ.qmgrdata = []; }
   }
-  // tslint:disable-next-line: forin
   for (const property in this.dataServ.arrQMGRtemp) {
     this.dataServ.qmgrdata.push({
       qmgrcd: property,
