@@ -1,5 +1,5 @@
 import { Component, ViewChild, ChangeDetectorRef, ElementRef, OnDestroy, AfterViewInit, HostBinding, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog'; 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { OverlayContainer} from '@angular/cdk/overlay';
@@ -19,7 +19,7 @@ export class DialogContentQMDialogComponent implements OnInit {
   qmForm: FormGroup;
   objectKeys = Object.keys;
 
-  constructor(public dialog: MatDialog, public dataServ: DataService, private snackBar: MatSnackBar, private formBuilder: FormBuilder) { }
+  constructor(public dialog: MatDialogModule, public dataServ: DataService, private snackBar: MatSnackBar, private formBuilder: FormBuilder) { }
   ngOnInit() {
     this.qmForm = new FormGroup({
      group: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(60)]),
@@ -61,11 +61,20 @@ export class DialogContentQMDialogComponent implements OnInit {
     if (this.dataServ.arrQMGR && this.dataServ.arrQMGR.some(e => e.name === this.qmForm.value.group.toUpperCase( ))) {
       this.dataServ.arrQMGR.find(e => e.name === this.qmForm.value.group.toUpperCase( )).children.push(qmgrinfo);
     } else {
-      this.dataServ.arrQMGR.push({
-        name: this.qmForm.value.group.toUpperCase( ),
-        iconName: 'apps',
-        children: [qmgrinfo]
-       });
+      if (Array.isArray(this.dataServ.arrQMGR)) {
+        this.dataServ.arrQMGR.push({
+          name: this.qmForm.value.group.toUpperCase( ),
+          iconName: 'apps',
+          children: [qmgrinfo]
+         });
+      } else {
+        this.dataServ.arrQMGR = [{
+          name: this.qmForm.value.group.toUpperCase( ),
+          iconName: 'apps',
+          children: [qmgrinfo]
+        }];
+      }
+      
     }
     const qmreply = window.electronIpcSendSync('updateQM', JSON.stringify(this.dataServ.arrQMGR));
     this.snackBar.open(qmreply, '', {
@@ -98,7 +107,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(
     public dataServ: DataService,
     private snackBar: MatSnackBar,
-    public dialog: MatDialog,
+    public dialog: MatDialogModule,
     public overlayContainer: OverlayContainer,
  //   private httpService: HttpClient,
     private navService: NavService,

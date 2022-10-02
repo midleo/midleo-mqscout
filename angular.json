@@ -23,7 +23,8 @@
             "main": "src/renderer/src/main.ts",
             "polyfills": "src/renderer/src/polyfills.ts",
             "tsConfig": "src/renderer/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
+            "buildOptimizer": true,
             "assets": [
               "src/renderer/src/assets"
             ],
@@ -125,5 +126,8 @@
         }
       }
     }},
-  "defaultProject": "renderer"
+  "defaultProject": "renderer",
+  "cli": {
+    "analytics": false
+  }
 }

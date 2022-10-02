@@ -7,7 +7,7 @@ const _SEP_ = require('path').sep;
 const _APPHOME_ = `${_HOME_}${_SEP_}.midleo${_SEP_}`;
 
 if (!fs.existsSync(_APPHOME_)) fs.mkdirSync(_APPHOME_);
-if (!fs.existsSync(_APPHOME_ + 'qmgrlist.json')) fs.writeFileSync(_APPHOME_ + 'qmgrlist.json',JSON.stringify(new Array()));
+if (!fs.existsSync(_APPHOME_ + 'qmgrlist.json')) fs.writeFileSync(_APPHOME_ + 'qmgrlist.json',"[{}]");
 
 let win: BrowserWindow;
 

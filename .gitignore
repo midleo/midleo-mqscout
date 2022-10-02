@@ -19,6 +19,7 @@ speed-measure-plugin.json
 /.idea
 .project
 .classpath
+.angular
 .c9/
 *.launch
 .settings/

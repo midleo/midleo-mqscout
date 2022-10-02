@@ -22,7 +22,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class MenuListItemComponent implements OnInit {
 
-  expanded: boolean;
+  expanded?: boolean = null;
   @HostBinding('attr.aria-expanded') ariaExpanded = this.expanded;
   @Input() item: any;
   @Input() previtem: any;

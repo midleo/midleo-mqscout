@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { DataService } from '../../common/data.service';
 import { Router , NavigationEnd } from '@angular/router';
-import { MatSort, MatPaginator, MatTableDataSource, MatDialog} from '@angular/material';
+import { MatSort } from '@angular/material/sort'; 
+import { MatPaginator } from '@angular/material/paginator'; 
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 import * as XLSX from 'xlsx';
 
 @Component({
