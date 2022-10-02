@@ -45,12 +45,12 @@ function createWindow() {
 }
 
 ipcMain.on('updateQM', (event, arg) => {
-  fs.writeFileSync(_APPHOME_ + 'qmgrlist.json', arg);
+  fs.writeFileSync(_APPHOME_ + 'qmgrlist.json', arg.toString());
   event.returnValue = 'Qmanagers updated successfully';
 });
 
 ipcMain.on('readQMList', () => {
-  const rawdata = fs.readFileSync(_APPHOME_ + 'qmgrlist.json');
+  const rawdata = fs.readFileSync(_APPHOME_ + 'qmgrlist.json').toString();
   if (win) {
     win.webContents.send('readQMListData', rawdata);
   }

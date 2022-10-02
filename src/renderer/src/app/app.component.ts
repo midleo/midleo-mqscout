@@ -1,5 +1,5 @@
 import { Component, ViewChild, ChangeDetectorRef, ElementRef, OnDestroy, AfterViewInit, HostBinding, OnInit } from '@angular/core';
-import { MatDialogModule } from '@angular/material/dialog'; 
+import { MatDialog } from '@angular/material/dialog'; 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { OverlayContainer} from '@angular/cdk/overlay';
@@ -19,7 +19,7 @@ export class DialogContentQMDialogComponent implements OnInit {
   qmForm: FormGroup;
   objectKeys = Object.keys;
 
-  constructor(public dialog: MatDialogModule, public dataServ: DataService, private snackBar: MatSnackBar, private formBuilder: FormBuilder) { }
+  constructor(private _dialog: MatDialog, public dataServ: DataService, private snackBar: MatSnackBar, private formBuilder: FormBuilder) { }
   ngOnInit() {
     this.qmForm = new FormGroup({
      group: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(60)]),
@@ -83,7 +83,7 @@ export class DialogContentQMDialogComponent implements OnInit {
   //  const data = window.electronIpcSendSync('updateQMList', '');
   //  this.dataServ.arrQMGR = JSON.parse(data);
     this.qmForm.reset();
-    this.dialog.closeAll();
+    this._dialog.closeAll();
     }
   }
 }
@@ -107,7 +107,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(
     public dataServ: DataService,
     private snackBar: MatSnackBar,
-    public dialog: MatDialogModule,
+    private _dialog: MatDialog,
     public overlayContainer: OverlayContainer,
  //   private httpService: HttpClient,
     private navService: NavService,
@@ -118,7 +118,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
   //  this.mobileQuery.addListener(this.mobileQueryListener);
   }
-  @HostBinding('class') componentCssClass;
+  @HostBinding('class') componentCssClass: string;
 
  // ngOnDestroy(): void {
   //  this.mobileQuery.removeListener(this.mobileQueryListener);
@@ -128,31 +128,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.navService.appDrawer = this.appDrawer;
   }
   ngOnInit() {
-
-
-
-  window.electronIpcOnce('readQMListData', (event, arg) => {
-    const data = JSON.parse(arg);
-    this.dataServ.arrQMGR = data ;
-  });
-  window.electronIpcSend('readQMList');
-
-
-  //  this.httpService.get('./assets/qmgrlist.json').subscribe(
-  //    data => {
-  //      this.arrQMGR = data as string [];
-  //    },
-  //    (err: HttpErrorResponse) => {
-  //      console.log (err.message);
-  //    }
-  //  );
+    window.electronIpcOnce('readQMListData', (event, arg) => {
+      const data = JSON.parse(arg);
+      this.dataServ.arrQMGR = data;
+    });
+    window.electronIpcSend('readQMList');
   }
-  onSetTheme(theme) {
+  onSetTheme(theme: string) {
     this.overlayContainer.getContainerElement().classList.add(theme);
     this.componentCssClass = theme;
   }
   openQMDialog() {
-    const dialogRef = this.dialog.open(DialogContentQMDialogComponent, { minWidth: 300 });
+    const dialogRef = this._dialog.open(DialogContentQMDialogComponent, { minWidth: 300 });
   }
   encryptThis(thistext: string) {
     return CryptoJS.AES.encrypt(thistext, this.encryptSecretKey).toString();
