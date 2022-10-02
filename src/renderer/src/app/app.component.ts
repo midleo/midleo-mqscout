@@ -80,8 +80,6 @@ export class DialogContentQMDialogComponent implements OnInit {
     this.snackBar.open(qmreply, '', {
       duration: 3000,
     });
-  //  const data = window.electronIpcSendSync('updateQMList', '');
-  //  this.dataServ.arrQMGR = JSON.parse(data);
     this.qmForm.reset();
     this._dialog.closeAll();
     }
