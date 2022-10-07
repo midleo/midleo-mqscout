@@ -1,6 +1,6 @@
 <a mat-list-item  (click)="onItemSelected(item,previtem,itemkey)"
    [ngClass]="{'active': item.route ? router.isActive(item.route, true): false, 'expanded': expanded, 'subitem': !item.children ? true: false}"
-   class="menu-list-item mli" >
+   class="menu-list-item mli" *ngIf="item.name">
   <mat-icon class="routeIcon">{{item.iconName}}</mat-icon>
   {{item.name}}
   <span fxFlex *ngIf="item.children && item.children.length">
