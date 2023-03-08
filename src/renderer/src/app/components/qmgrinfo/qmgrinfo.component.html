@@ -20,11 +20,11 @@
     <table [dataSource]="dataSource" mat-table matSort>
       <ng-container matColumnDef="qmgrattr">
       <th *matHeaderCellDef mat-header-cell mat-sort-header class="header-align-right text-uppercase" arrowPosition="before"> Qmanager Attributes</th>
-      <td *matCellDef="let element" mat-cell class="header-align-right"> {{element.qmgrattr}} </td>
+      <td *matCellDef="let element" mat-cell class="header-align-right" width ="40%"> {{element.qmgrattr}} </td>
       </ng-container>
       <ng-container matColumnDef="qmgrdata">
       <th *matHeaderCellDef mat-header-cell class="header-align-left"> </th>
-      <td *matCellDef="let element" mat-cell class="header-align-left"> {{element.qmgrdata}} </td>
+      <td *matCellDef="let element" mat-cell class="header-align-left" width ="60%"> {{element.qmgrdata}} </td>
       </ng-container>
       <tr *matHeaderRowDef="displayedQMColumns" mat-header-row></tr>
       <tr *matRowDef="let row; columns: displayedQMColumns;" mat-row></tr>
@@ -33,11 +33,11 @@
       <table [dataSource]="dataSourceCD" mat-table >
         <ng-container matColumnDef="qmgrcd">
         <th *matHeaderCellDef mat-header-cell class="header-align-right text-uppercase" arrowPosition="before"> Connection Details</th>
-        <td *matCellDef="let element" mat-cell class="header-align-right"> {{element.qmgrcd}} </td>
+        <td *matCellDef="let element" mat-cell class="header-align-right" width ="40%"> {{element.qmgrcd}} </td>
         </ng-container>
         <ng-container matColumnDef="qmgrcdv">
         <th *matHeaderCellDef mat-header-cell class="header-align-left"> </th>
-        <td *matCellDef="let element" mat-cell class="header-align-left"> {{element.qmgrcdv}} </td>
+        <td *matCellDef="let element" mat-cell class="header-align-left" width ="60%"> {{element.qmgrcdv}} </td>
         </ng-container>
         <tr *matHeaderRowDef="displayedCDColumns" mat-header-row></tr>
         <tr *matRowDef="let row; columns: displayedCDColumns;" mat-row></tr>

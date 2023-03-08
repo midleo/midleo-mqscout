@@ -21,7 +21,7 @@ export class QMGRInfoComponent implements OnInit, OnDestroy {
   constructor(public dataServ: DataService, private router: Router) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
-        if (this.dataServ.jsonkeychanged) { this.dataServ.qmgrdata = []; }
+        if (this.dataServ.jsonkeychanged) { this.dataServ.qmgrdata = []; this.dataServ.qmgrcddata = []; }
         this.getQMI();
       }
     });
@@ -30,7 +30,7 @@ export class QMGRInfoComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   ngOnInit() {
-    if (this.dataServ.jsonkeychanged) { this.dataServ.qmgrdata = []; }
+    if (this.dataServ.jsonkeychanged) { this.dataServ.qmgrdata = [];  }
     this.getQMI();
   }
   getQMI() {
@@ -63,20 +63,35 @@ export class QMGRInfoComponent implements OnInit, OnDestroy {
     }
     if (qmreply.qmgr) {
     for (const property in qmreply.qmgr) {
-      this.dataServ.qmgrdata.push({
-        qmgrattr: property,
-        qmgrdata: qmreply.qmgr[property]
-       });
+      if(property){
+        this.dataServ.qmgrdata.push({
+          qmgrattr: property,
+          qmgrdata: qmreply.qmgr[property]
+         });
+      }
      }
     } else { this.dataServ.qmgrdata = []; }
   }
-  for (const property in this.dataServ.arrQMGRtemp) {
-    this.dataServ.qmgrdata.push({
-      qmgrcd: property,
-      qmgrcdv: this.dataServ.arrQMGRtemp[property]
-     });
-  }
-  this.dataSourceCD.data = this.qmgrcd;
+  
+  this.dataServ.qmgrcddata = [];
+  this.dataServ.qmgrcddata.push({
+    qmgrcd: "name",
+    qmgrcdv: this.dataServ.arrQMGRtemp["name"]
+   });
+   this.dataServ.qmgrcddata.push({
+    qmgrcd: "hostname",
+    qmgrcdv: this.dataServ.arrQMGRtemp["hostname"]
+   });
+   this.dataServ.qmgrcddata.push({
+    qmgrcd: "port",
+    qmgrcdv: this.dataServ.arrQMGRtemp["port"]
+   });
+   this.dataServ.qmgrcddata.push({
+    qmgrcd: "channel",
+    qmgrcdv: this.dataServ.arrQMGRtemp["channel"]
+   });
+
+  this.dataSourceCD.data = this.dataServ.qmgrcddata;
   this.dataSource.data = this.dataServ.qmgrdata;
   this.dataSource.sort = this.sort;
   }

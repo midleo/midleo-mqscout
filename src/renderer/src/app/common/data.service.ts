@@ -11,6 +11,7 @@ export class DataService {
   loadthis = false;
   dataerr = false;
   qmgrdata: any [];
+  qmgrcddata: any [];
 
   qlist: any [];
   qlistreply: [];

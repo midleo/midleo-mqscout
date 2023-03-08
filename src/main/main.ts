@@ -25,9 +25,12 @@ function createWindow() {
   win = new BrowserWindow({
     width: 1200,
     height: 800,
-    backgroundColor: '#fcf9f9',
-    fullscreen: true,
-    icon: path.join(__dirname, 'assets/midleo-logo-white.png') ,
+    backgroundColor: '#ffffff',
+    title: 'Midleo.App',
+    frame: false,
+    center: true,
+    fullscreen: false,
+    icon: path.join(__dirname, 'assets/midleo-logo-code.jpg') ,
     webPreferences: {
       plugins: true,
       nodeIntegration: true,
