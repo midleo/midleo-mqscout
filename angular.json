@@ -22,7 +22,7 @@
             "index": "src/renderer/src/index.html",
             "main": "src/renderer/src/main.ts",
             "polyfills": "src/renderer/src/polyfills.ts",
-            "tsConfig": "src/renderer/tsconfig.json",
+            "tsConfig": "src/renderer/tsconfig.app.json",
             "aot": true,
             "buildOptimizer": true,
             "assets": [
@@ -85,7 +85,7 @@
           "builder": "@angular-devkit/build-angular:eslint",
           "options": {
             "tsConfig": [
-              "src/renderer/tsconfig.json",
+              "src/renderer/tsconfig.app.json",
               "src/renderer/tsconfig.spec.json"
             ],
             "exclude": [
