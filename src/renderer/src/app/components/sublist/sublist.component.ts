@@ -58,10 +58,10 @@ export class SubListComponent implements OnInit, OnDestroy {
       qmanager: this.dataServ.arrQMGRtemp.name,
       function: 'SUBS',
       systemobj: this.dataServ.systemobj,
-      ssl: this.dataServ.arrQMGRtemp.ssl,
-      sslkey: this.dataServ.arrQMGRtemp.sslkey,
-      sslpass: this.dataServ.arrQMGRtemp.sslpass,
-      sslcipher: this.dataServ.arrQMGRtemp.sslcipher
+      ssl: this.dataServ.arrQMGRtemp.ssl!=''?this.dataServ.arrQMGRtemp.ssl:null,
+      sslkey: this.dataServ.arrQMGRtemp.sslkey!=''?this.dataServ.arrQMGRtemp.sslkey:null,
+      sslpass: this.dataServ.arrQMGRtemp.sslpass!=''?this.dataServ.arrQMGRtemp.sslpass:null,
+      sslcipher: this.dataServ.arrQMGRtemp.sslcipher!=''?this.dataServ.arrQMGRtemp.sslcipher:null
     };
     let qmreply: any;
     try {

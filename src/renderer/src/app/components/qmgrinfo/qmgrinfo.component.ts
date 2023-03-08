@@ -48,10 +48,10 @@ export class QMGRInfoComponent implements OnInit, OnDestroy {
       port: this.dataServ.arrQMGRtemp.port,
       qmanager: this.dataServ.arrQMGRtemp.name,
       function: 'QMGR',
-      ssl: this.dataServ.arrQMGRtemp.ssl,
-      sslkey: this.dataServ.arrQMGRtemp.sslkey,
-      sslpass: this.dataServ.arrQMGRtemp.sslpass,
-      sslcipher: this.dataServ.arrQMGRtemp.sslcipher
+      ssl: this.dataServ.arrQMGRtemp.ssl!=''?this.dataServ.arrQMGRtemp.ssl:null,
+      sslkey: this.dataServ.arrQMGRtemp.sslkey!=''?this.dataServ.arrQMGRtemp.sslkey:null,
+      sslpass: this.dataServ.arrQMGRtemp.sslpass!=''?this.dataServ.arrQMGRtemp.sslpass:null,
+      sslcipher: this.dataServ.arrQMGRtemp.sslcipher!=''?this.dataServ.arrQMGRtemp.sslcipher:null
     };
     let qmreply: any;
     try {
