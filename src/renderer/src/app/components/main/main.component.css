@@ -1,7 +1,4 @@
 .app-div{margin-left:18px;margin-right:18px}
-mat-card-header,.mat-card-header{background:rgba(0,0,0,0.03);padding:5px!important}
 .container{padding:10px}
-.midcard.mat-card{border:1px solid var(--border-color); border-radius:0;box-shadow:none;padding:0}
-mad-card-content,.mat-card-content{padding:15px!important}
-mat-card-subtitle,.mat-card-subtitle{margin-bottom:0!important}
-mat-card-header,.mat-card-header{padding:10px!important}
+.midcard.mat-mdc-card{border:1px solid var(--border-color); border-radius:0;box-shadow:none;padding:0}
+mad-card-content,.mat-mdc-card-content{padding:15px!important}

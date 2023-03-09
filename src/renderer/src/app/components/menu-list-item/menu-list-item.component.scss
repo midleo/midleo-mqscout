@@ -1,46 +1,55 @@
 @import '../../../assets/scss/midleo.scss';
+
 :host {
   display: flex;
   flex-direction: column;
   outline: none;
   width: 100%;
-  .mat-list-item.active {
+
+  .mat-mdc-list-item.active {
     background-color: mat-color($midleo-theme-primary, 50);
   }
+
   &:hover,
   &:focus {
-    >.mat-list-item:not(.expanded) {
+    >.mat-mdc-list-item:not(.expanded) {
       background-color: mat-color($midleo-theme-primary, 100) !important;
     }
   }
 }
-.mat-list-item {
-  display: block;
+
+.mat-mdc-list-item {
   width: 100%;
+
   .routeIcon {
     margin-right: 20px;
-    font-size: 20px!important;
-    height: 20px!important;
-    width: 20px!important;
+    font-size: 20px !important;
+    height: 20px !important;
+    width: 20px !important;
   }
 }
-.mat-list-item.subitem{
-  font-size: 12px!important;
+
+.mat-mdc-list-item.subitem {
+  font-size: 12px !important;
   height: 44px !important;
+
   .routeIcon {
     margin-right: 18px;
-    font-size: 18px!important;
-    height: 18px!important;
-    width: 18px!important;
+    font-size: 18px !important;
+    height: 18px !important;
+    width: 18px !important;
   }
 }
-.mat-list-item.active {
+
+.mat-mdc-list-item.active {
   background-color: mat-color($midleo-theme-primary, 50);
 }
-.expandicon{
+
+.expandicon {
   float: right;
   margin-left: 15px;
 }
+
 .mli {
-  font-size: 14px!important;
+  font-size: 14px !important;
 }

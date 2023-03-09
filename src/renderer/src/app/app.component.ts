@@ -133,6 +133,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     window.electronIpcSend('readQMList');
   }
   onSetTheme(theme: string) {
+    this.overlayContainer.getContainerElement().classList.remove('midleo-dark-theme');
+    this.overlayContainer.getContainerElement().classList.remove('midleo-light-theme');
     this.overlayContainer.getContainerElement().classList.add(theme);
     this.componentCssClass = theme;
   }

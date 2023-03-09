@@ -1,5 +1,5 @@
 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
-  <mat-card class="midcard" *ngIf="!this.dataServ.loadthis">
+  <mat-card appearance="outlined" class="midcard" *ngIf="!this.dataServ.loadthis">
   	<mat-card-header>
     <mat-card-title>Welcome to MidlEO</mat-card-title>
     <mat-card-subtitle>Middleware Enterprise Organizer</mat-card-subtitle>
@@ -28,7 +28,7 @@
     <br><br><br><br>
   </mat-card-content>
 </mat-card>
-<mat-card *ngIf="this.dataServ.loadthis"
+<mat-card appearance="outlined" *ngIf="this.dataServ.loadthis"
    style="display: flex; justify-content: center; align-items: center">
   <mat-progress-spinner
     color="primary"
