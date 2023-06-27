@@ -9,13 +9,14 @@
       "moduleResolution": "node",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
-      "target": "es6",
-      "types": [
-        "../window-interface"
-      ],      
+      "target": "es6",   
       "typeRoots": [
-        "node_modules/@types"
+        "node_modules/@types",
+        "../types"
       ],
-      "lib": ["es2018", "dom"]
+      "lib": [
+        "es2022",
+        "dom"
+      ]
     }
   }

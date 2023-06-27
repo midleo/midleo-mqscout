@@ -10,15 +10,13 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es6", // https://github.com/electron/electron/issues/12011
-    "types": [
-      "../window-interface"      
-    ],
+    "target": "es6",     
     "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
+      "../types"
     ],
     "lib": [
-      "es2018",
+      "es2022",
       "dom"
     ]
   }
