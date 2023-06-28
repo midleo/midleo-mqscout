@@ -30,7 +30,7 @@
             ],
             "styles": [
               "src/renderer/src/styles.css",
-              "src/renderer/src/assets/scss/midleo.scss"
+              "src/renderer/src/assets/themes/_midleo.scss"
             ],
             "scripts": ["node_modules/hammerjs/hammer.min.js"]
           },

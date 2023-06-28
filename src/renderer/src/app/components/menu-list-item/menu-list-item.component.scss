@@ -1,4 +1,7 @@
-@import '../../../assets/scss/midleo.scss';
+@use 'sass:map';
+@use '@angular/material' as mat;
+@import '../../../assets/themes/midleo';
+
 
 :host {
   display: flex;
@@ -7,13 +10,13 @@
   width: 100%;
 
   .mat-mdc-list-item.active {
-    background-color: mat-color($midleo-theme-primary, 50);
+    background-color: mat.get-color-from-palette($midleo-theme-primary, 50);
   }
 
   &:hover,
   &:focus {
     >.mat-mdc-list-item:not(.expanded) {
-      background-color: mat-color($midleo-theme-primary, 100) !important;
+      background-color: mat.get-color-from-palette($midleo-theme-primary, 100) !important;
     }
   }
 }
@@ -42,8 +45,9 @@
 }
 
 .mat-mdc-list-item.active {
-  background-color: mat-color($midleo-theme-primary, 50);
+  background-color: mat.get-color-from-palette($midleo-theme-primary, 50);
 }
+
 
 .expandicon {
   float: right;
