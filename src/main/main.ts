@@ -63,7 +63,7 @@ ipcMain.on('readQMList', () => {
 });
 
 ipcMain.on('execPCFQD', (event, arg) => {
-  const childPorcess = exec('java -jar ' + path.join(app.getAppPath(), 'dist/renderer/assets', 'midleo.jar') + ' ' + arg, (err, stdout, stderr) => {
+  const childPorcess = exec('java -jar ' + path.join(_APPHOME_, 'midleo.jar') + ' ' + arg, (err, stdout, stderr) => {
     if (err) {
       event.returnValue = err;
     } else if(stderr) {

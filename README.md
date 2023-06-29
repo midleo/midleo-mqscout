@@ -7,6 +7,7 @@ Source code for MQScout - Explorer for IBM Mq server
 
 
 ```bash
+$ Download latest midleo.jar from https://gitlab.com/vasilev.link/public/-/tree/master/java/midleo_mq to YOUR_HOME_FOLDER/.midleo
 $ git clone https://github.com/midleo/midleo-mqscout.git
 $ cd midleo-mqscout
 $ npm install
