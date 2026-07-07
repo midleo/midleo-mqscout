@@ -1,59 +1,99 @@
-@use 'sass:map';
-@use '@angular/material' as mat;
-@import '../../../assets/themes/midleo';
-
-
 :host {
   display: flex;
   flex-direction: column;
   outline: none;
   width: 100%;
-
-  .mat-mdc-list-item.active {
-    background-color: mat.get-color-from-palette($midleo-theme-primary, 50);
-  }
-
-  &:hover,
-  &:focus {
-    >.mat-mdc-list-item:not(.expanded) {
-      background-color: mat.get-color-from-palette($midleo-theme-primary, 100) !important;
-    }
-  }
 }
 
-.mat-mdc-list-item {
-  width: 100%;
-
-  .routeIcon {
-    margin-right: 20px;
-    font-size: 20px !important;
-    height: 20px !important;
-    width: 20px !important;
-  }
+.menu-list-item {
+  border-radius: 6px !important;
+  margin: 1px 0;
+  transition: background-color 0.15s ease;
+  color: var(--midleo-text);
 }
 
-.mat-mdc-list-item.subitem {
-  font-size: 12px !important;
-  height: 44px !important;
-
-  .routeIcon {
-    margin-right: 18px;
-    font-size: 18px !important;
-    height: 18px !important;
-    width: 18px !important;
-  }
+.menu-list-item .item-label,
+.menu-list-item .mdc-list-item__primary-text {
+  color: inherit;
 }
 
-.mat-mdc-list-item.active {
-  background-color: mat.get-color-from-palette($midleo-theme-primary, 50);
+.menu-list-item:hover:not(.active) {
+  background-color: var(--midleo-primary-hover) !important;
 }
 
-
-.expandicon {
-  float: right;
-  margin-left: 15px;
+.menu-list-item .routeIcon,
+.menu-list-item .expand-icon {
+  color: var(--midleo-text-muted);
 }
 
-.mli {
-  font-size: 14px !important;
+.menu-list-item.active .routeIcon,
+.menu-list-item.active .expand-icon {
+  color: var(--midleo-primary);
+}
+
+.menu-list-item.group-item {
+  font-weight: 600;
+  font-size: 13px !important;
+}
+
+.menu-list-item.subitem {
+  font-size: 13px !important;
+  height: 40px !important;
+  padding-left: 8px !important;
+}
+
+.menu-list-item.active {
+  background-color: var(--midleo-primary-light) !important;
+  color: var(--midleo-text);
+}
+
+.menu-list-item.danger-item .item-label,
+.menu-list-item.danger-item .danger-icon {
+  color: var(--midleo-danger);
+}
+
+.menu-list-item.danger-item:hover {
+  background-color: var(--midleo-danger-light) !important;
+}
+
+.routeIcon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+  margin-right: 4px;
+}
+
+.subitem .routeIcon {
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.item-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.expand-icon {
+  flex-shrink: 0;
+  font-size: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px;
+  overflow: visible !important;
+}
+
+.menu-list-item .mdc-list-item__end,
+.menu-list-item [matListItemMeta] {
+  overflow: visible !important;
+  margin-inline-start: 8px;
+}
+
+.children-container {
+  overflow: hidden;
+  padding-left: 12px;
+  border-left: 2px solid var(--midleo-border);
+  margin-left: 20px;
 }

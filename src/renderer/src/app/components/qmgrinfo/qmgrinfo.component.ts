@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { DataService } from '../../common/data.service';
+import { ElectronService } from '../../core/electron.service';
 import { Router , NavigationEnd } from '@angular/router';
 import { MatSort } from '@angular/material/sort'; 
 import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
+  standalone: false,
   selector: 'app-qmgrinfo-component',
   templateUrl: './qmgrinfo.component.html',
   styleUrls: ['../main/qmcontent.css']
@@ -18,7 +20,7 @@ export class QMGRInfoComponent implements OnInit, OnDestroy {
 
   dataSource = new MatTableDataSource();
   dataSourceCD = new MatTableDataSource();
-  constructor(public dataServ: DataService, private router: Router) {
+  constructor(public dataServ: DataService, private router: Router, private electron: ElectronService) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
         if (this.dataServ.jsonkeychanged) { this.dataServ.qmgrdata = []; this.dataServ.qmgrcddata = []; }
@@ -33,7 +35,7 @@ export class QMGRInfoComponent implements OnInit, OnDestroy {
     if (this.dataServ.jsonkeychanged) { this.dataServ.qmgrdata = [];  }
     this.getQMI();
   }
-  getQMI() {
+  async getQMI() {
 
   this.dataServ.selectedQmgr = this.dataServ.arrQMGRtemp.name;
   this.dataServ.selectedQmgrInfo = 'Info about the qmanager';
@@ -41,23 +43,11 @@ export class QMGRInfoComponent implements OnInit, OnDestroy {
   if (!this.dataServ.qmgrdata || this.dataServ.qmgrdata.length < 1) {
     this.dataServ.jsonkeychanged = false;
     this.dataServ.qmgrdata = [];
-    const QMGRinput = {
-      type: 'READ',
-      hostname: this.dataServ.arrQMGRtemp.hostname,
-      channel: this.dataServ.arrQMGRtemp.channel,
-      port: this.dataServ.arrQMGRtemp.port,
-      qmanager: this.dataServ.arrQMGRtemp.name,
-      function: 'QMGR',
-      ssl: this.dataServ.arrQMGRtemp.ssl!=''?this.dataServ.arrQMGRtemp.ssl:null,
-      sslkey: this.dataServ.arrQMGRtemp.sslkey!=''?this.dataServ.arrQMGRtemp.sslkey:null,
-      sslpass: this.dataServ.arrQMGRtemp.sslpass!=''?this.dataServ.arrQMGRtemp.sslpass:null,
-      sslcipher: this.dataServ.arrQMGRtemp.sslcipher!=''?this.dataServ.arrQMGRtemp.sslcipher:null
-    };
     let qmreply: any;
     try {
-      qmreply = JSON.parse(window.electronIpcSendSync('execPCFQD', JSON.stringify(QMGRinput)));
+      qmreply = await this.electron.execPcfqd(this.dataServ.buildMqReadPayload('QMGR'));
       this.dataServ.dataerr = false;
-    } catch (e) {
+    } catch {
       qmreply = '';
       this.dataServ.dataerr = true;
     }

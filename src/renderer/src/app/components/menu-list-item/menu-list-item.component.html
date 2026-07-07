@@ -1,16 +1,35 @@
-<a mat-list-item  (click)="onItemSelected(item,previtem,itemkey)"
-   [ngClass]="{'active': item.route ? router.isActive(item.route, true): false, 'expanded': expanded, 'subitem': !item.children ? true: false}"
-   class="menu-list-item mli" *ngIf="item.name">
-  <mat-icon matListItemIcon class="routeIcon">{{item.iconName}}</mat-icon>
-  {{item.name}}
-  <span fxFlex *ngIf="item.children && item.children.length">
-    <span fxFlex></span>
-    <mat-icon matListItemIcon [@indicatorRotate]="expanded ? 'expanded': 'collapsed'" class="expandicon">
-      expand_more
-    </mat-icon>
-  </span>
+<a
+  mat-list-item
+  (click)="onItemSelected(item, previtem, itemkey, $event)"
+  [ngClass]="{
+    'active': isActiveRoute(item.route),
+    'expanded': expanded,
+    'subitem': depth > 0,
+    'danger-item': item.danger,
+    'group-item': depth === 0
+  }"
+  class="menu-list-item"
+  *ngIf="item.name">
+  <mat-icon matListItemIcon class="routeIcon" [class.danger-icon]="item.danger" [fontIcon]="item.iconName"></mat-icon>
+  <span matListItemTitle class="item-label">{{ item.name }}</span>
+  <mat-icon
+    *ngIf="item.children?.length"
+    matListItemMeta
+    fontIcon="expand_more"
+    [@indicatorRotate]="expanded ? 'expanded' : 'collapsed'"
+    class="expand-icon"
+    aria-hidden="true">
+  </mat-icon>
 </a>
-<div *ngIf="expanded">
-  <app-menu-list-item *ngFor="let child of item.children | keyvalue" [item]="child.value" [itemkey]="child.key" [previtem]="item" [depth]="depth+1">
+
+<div *ngIf="expanded && item.children?.length" class="children-container" @expandCollapse>
+  <app-menu-list-item
+    *ngFor="let child of item.children; let j = index; trackBy: trackByQmName"
+    [item]="child"
+    [itemkey]="j"
+    [groupIndex]="groupIndex"
+    [qmIndex]="depth === 0 ? j : qmIndex"
+    [previtem]="depth === 0 ? child : previtem"
+    [depth]="depth + 1">
   </app-menu-list-item>
 </div>

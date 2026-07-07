@@ -8,7 +8,8 @@
       "schematics": {
         "@schematics/angular:component": {
           "inlineTemplate": true,
-          "inlineStyle": true
+          "inlineStyle": true,
+          "standalone": false
         }
       },
       "root": "src/renderer",
@@ -16,15 +17,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/renderer",
             "index": "src/renderer/src/index.html",
-            "main": "src/renderer/src/main.ts",
-            "polyfills": "src/renderer/src/polyfills.ts",
+            "browser": "src/renderer/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "src/renderer/tsconfig.app.json",
-            "aot": true,
-            "buildOptimizer": true,
             "assets": [
               "src/renderer/src/assets"
             ],
@@ -32,7 +33,8 @@
               "src/renderer/src/styles.css",
               "src/renderer/src/assets/themes/_midleo.scss"
             ],
-            "scripts": ["node_modules/hammerjs/hammer.min.js"]
+            "scripts": [],
+            "baseHref": "./"
           },
           "configurations": {
             "production": {
@@ -46,10 +48,7 @@
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "aot": true,
-              "extractLicenses": false,
-              "vendorChunk": false,
-              "buildOptimizer": true,
+              "extractLicenses": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -58,43 +57,54 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
+                  "maximumWarning": "8kb",
+                  "maximumError": "16kb"
                 }
               ]
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "renderer:build"
-          },
           "configurations": {
             "production": {
-              "browserTarget": "renderer:build:production"
+              "buildTarget": "renderer:build:production"
+            },
+            "development": {
+              "buildTarget": "renderer:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "renderer:build"
-          }
+          "builder": "@angular-devkit/build-angular:extract-i18n"
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:eslint",
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": [
-              "src/renderer/tsconfig.app.json",
-              "src/renderer/tsconfig.spec.json"
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": "src/renderer/tsconfig.spec.json",
+            "assets": [
+              "src/renderer/src/assets"
+            ],
+            "styles": [
+              "src/renderer/src/styles.css"
+            ],
+            "scripts": []
           }
         }
       }
-    }},
+    }
+  },
   "cli": {
     "analytics": false
   }

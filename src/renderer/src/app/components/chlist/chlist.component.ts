@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { DataService } from '../../common/data.service';
+import { ElectronService } from '../../core/electron.service';
 import { Router , NavigationEnd } from '@angular/router';
 import { MatSort } from '@angular/material/sort'; 
 import { MatPaginator } from '@angular/material/paginator'; 
@@ -8,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import * as XLSX from 'xlsx';
 
 @Component({
+  standalone: false,
   selector: 'app-chlist-component',
   templateUrl: './chlist.component.html',
   styleUrls: ['../main/qmcontent.css']
@@ -26,7 +28,7 @@ export class CHListComponent implements OnInit, OnDestroy {
   @ViewChild('CHLSort', {static: true}) CHLSort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(public dataServ: DataService, public dialog: MatDialog, private router: Router) {
+  constructor(public dataServ: DataService, public dialog: MatDialog, private router: Router, private electron: ElectronService) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
         if (this.dataServ.jsonkeychanged) { this.dataServ.chlist = []; }
@@ -39,34 +41,18 @@ export class CHListComponent implements OnInit, OnDestroy {
    if (this.dataServ.jsonkeychanged) { this.dataServ.chlist = []; }
    this.getCHL();
   }
-  getCHL() {
+  async getCHL() {
 
   this.dataServ.selectedQmgr = this.dataServ.arrQMGRtemp.name;
-//  this.dataServ.systemobj = thissysobj;
-//  this.dataServ.emptyobj = thisemptyobj;
 
   if (!this.dataServ.chlist || this.dataServ.chlist.length < 1) {
     this.dataServ.jsonkeychanged = false;
     this.dataServ.chlist = [];
-  //  this.dataServ.chlistreply = [];
-    const QMGRinput = {
-      type: 'READ',
-      hostname: this.dataServ.arrQMGRtemp.hostname,
-      channel: this.dataServ.arrQMGRtemp.channel,
-      port: this.dataServ.arrQMGRtemp.port,
-      qmanager: this.dataServ.arrQMGRtemp.name,
-      function: 'CHANNELS',
-      systemobj: this.dataServ.systemobj,
-      ssl: this.dataServ.arrQMGRtemp.ssl!=''?this.dataServ.arrQMGRtemp.ssl:null,
-      sslkey: this.dataServ.arrQMGRtemp.sslkey!=''?this.dataServ.arrQMGRtemp.sslkey:null,
-      sslpass: this.dataServ.arrQMGRtemp.sslpass!=''?this.dataServ.arrQMGRtemp.sslpass:null,
-      sslcipher: this.dataServ.arrQMGRtemp.sslcipher!=''?this.dataServ.arrQMGRtemp.sslcipher:null
-    };
     let qmreply: any;
     try {
-      qmreply = JSON.parse(window.electronIpcSendSync('execPCFQD', JSON.stringify(QMGRinput)));
+      qmreply = await this.electron.execPcfqd(this.dataServ.buildMqReadPayload('CHANNELS', true));
       this.dataServ.dataerr = false;
-    } catch (e) {
+    } catch {
       qmreply = '';
       this.dataServ.dataerr = true;
     }

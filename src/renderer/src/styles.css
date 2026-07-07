@@ -1,4 +1,279 @@
-@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import "@angular/material/prebuilt-themes/azure-blue.css";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: var(--midleo-surface, #f5f7fa);
+  color: var(--midleo-text, #1a2332);
+}
+
+/* Frameless window drag region */
+.app-drag-region {
+  -webkit-app-region: drag;
+}
+
+.app-no-drag {
+  -webkit-app-region: no-drag;
+}
+
+/* Shared page layout */
+.page-container {
+  padding: 16px 20px;
+  height: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.content-card {
+  border: 1px solid var(--midleo-border) !important;
+  border-radius: var(--midleo-radius) !important;
+  box-shadow: var(--midleo-shadow) !important;
+  background: var(--midleo-surface-elevated) !important;
+  overflow: hidden;
+}
+
+.content-card .mat-mdc-card-header {
+  padding: 16px 20px 8px;
+  border-bottom: 1px solid var(--midleo-border);
+}
+
+.content-card .mat-mdc-card-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.content-card .mat-mdc-card-subtitle {
+  color: var(--midleo-text-muted);
+  margin-top: 4px;
+}
+
+.content-card .mat-mdc-card-content {
+  padding: 16px 20px !important;
+}
+
+/* Data table toolbar */
+.data-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--midleo-border);
+}
+
+.data-toolbar .mat-mdc-form-field {
+  font-size: 13px;
+  width: auto;
+  min-width: 140px;
+}
+
+.data-toolbar-actions {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.search-field {
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 8px;
+}
+
+/* Tables */
+.table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--midleo-border);
+  border-radius: var(--midleo-radius);
+}
+
+.data-table {
+  width: 100%;
+}
+
+.data-table th.mat-mdc-header-cell {
+  background: var(--midleo-primary-light);
+  color: var(--midleo-text);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.data-table td.mat-mdc-cell {
+  font-size: 13px;
+}
+
+.data-table tr.mat-mdc-row:hover {
+  background: var(--midleo-primary-light);
+}
+
+/* Empty / loading states */
+.state-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--midleo-text-muted);
+}
+
+.state-panel mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.loading-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 64px 24px;
+  min-height: 200px;
+}
+
+/* Dark theme — cards, accordion, typography */
+.midleo-dark-theme .content-card .mat-mdc-card-title,
+.midleo-dark-theme .mat-mdc-card-title {
+  color: var(--midleo-text) !important;
+}
+
+.midleo-dark-theme .content-card .mat-mdc-card-subtitle,
+.midleo-dark-theme .mat-mdc-card-subtitle {
+  color: var(--midleo-text-muted) !important;
+}
+
+.midleo-dark-theme .mat-expansion-panel {
+  background: var(--midleo-surface-elevated) !important;
+  color: var(--midleo-text) !important;
+}
+
+.midleo-dark-theme .mat-expansion-panel-header {
+  background: var(--midleo-surface-elevated) !important;
+}
+
+.midleo-dark-theme .mat-expansion-panel-header-title,
+.midleo-dark-theme .mat-expansion-panel-header-description,
+.midleo-dark-theme .mat-expansion-panel-body {
+  color: var(--midleo-text) !important;
+}
+
+.midleo-dark-theme .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover {
+  background: var(--midleo-primary-hover) !important;
+}
+
+.midleo-dark-theme .step-card {
+  background: var(--midleo-surface-elevated);
+}
+
+.midleo-dark-theme .step-body h3 {
+  color: var(--midleo-text);
+}
+
+.midleo-dark-theme .data-table th.mat-mdc-header-cell {
+  background: var(--midleo-primary-light);
+  color: var(--midleo-text);
+}
+
+.midleo-dark-theme .data-table tr.mat-mdc-row:hover {
+  background: var(--midleo-primary-hover);
+}
+
+.midleo-dark-theme .mat-mdc-form-field {
+  --mdc-filled-text-field-container-color: var(--midleo-surface-elevated);
+  --mdc-filled-text-field-label-text-color: var(--midleo-text-muted);
+  --mdc-filled-text-field-input-text-color: var(--midleo-text);
+}
+
+/* Dark theme — sidenav / navigation */
+.midleo-dark-theme .mat-drawer.app-sidenav,
+.midleo-dark-theme .app-sidenav {
+  background: var(--midleo-surface-elevated) !important;
+  color: var(--midleo-text);
+}
+
+.midleo-dark-theme .mat-drawer-inner-container {
+  background: var(--midleo-surface-elevated);
+}
+
+.midleo-dark-theme .sidenav-header,
+.midleo-dark-theme .sidenav-header mat-icon {
+  color: var(--midleo-text-muted);
+}
+
+.midleo-dark-theme .sidenav-empty,
+.midleo-dark-theme .sidenav-empty p {
+  color: var(--midleo-text-muted);
+}
+
+.midleo-dark-theme .mat-mdc-nav-list .mat-mdc-list-item,
+.midleo-dark-theme .mat-mdc-list-item.menu-list-item,
+.midleo-dark-theme .mat-mdc-list-item.mdc-list-item {
+  --mdc-list-list-item-label-text-color: var(--midleo-text);
+  --mdc-list-list-item-supporting-text-color: var(--midleo-text-muted);
+  --mdc-list-list-item-leading-icon-color: var(--midleo-text-muted);
+  --mdc-list-list-item-trailing-icon-color: var(--midleo-text-muted);
+  --mat-list-list-item-label-text-color: var(--midleo-text);
+  --mat-list-list-item-leading-icon-color: var(--midleo-text-muted);
+  --mat-list-list-item-trailing-icon-color: var(--midleo-text-muted);
+  color: var(--midleo-text);
+}
+
+.midleo-dark-theme .mat-mdc-list-item .mdc-list-item__primary-text,
+.midleo-dark-theme .mat-mdc-list-item .item-label {
+  color: var(--midleo-text) !important;
+}
+
+.midleo-dark-theme .mat-mdc-list-item .mdc-list-item__start,
+.midleo-dark-theme .mat-mdc-list-item .mdc-list-item__end,
+.midleo-dark-theme .mat-mdc-list-item .routeIcon,
+.midleo-dark-theme .mat-mdc-list-item .expand-icon {
+  color: var(--midleo-text-muted) !important;
+}
+
+.midleo-dark-theme .mat-mdc-list-item:hover:not(.active) {
+  background-color: var(--midleo-primary-hover) !important;
+}
+
+.midleo-dark-theme .mat-mdc-list-item.active,
+.midleo-dark-theme .menu-list-item.active {
+  background-color: var(--midleo-primary-light) !important;
+  color: var(--midleo-text) !important;
+}
+
+.midleo-dark-theme .mat-mdc-list-item.active .mdc-list-item__primary-text,
+.midleo-dark-theme .mat-mdc-list-item.active .item-label,
+.midleo-dark-theme .menu-list-item.active .item-label {
+  color: var(--midleo-text) !important;
+}
+
+.midleo-dark-theme .mat-mdc-list-item.active .routeIcon,
+.midleo-dark-theme .mat-mdc-list-item.active .expand-icon,
+.midleo-dark-theme .menu-list-item.active .routeIcon {
+  color: var(--midleo-primary) !important;
+}
+
+.midleo-dark-theme .menu-list-item.danger-item .item-label,
+.midleo-dark-theme .menu-list-item.danger-item .danger-icon {
+  color: #f1948a !important;
+}
+
+.midleo-dark-theme .menu-list-item.danger-item:hover {
+  background-color: var(--midleo-danger-light) !important;
+}
+
+.midleo-dark-theme .children-container {
+  border-left-color: var(--midleo-border);
+}

@@ -1,141 +1,86 @@
-@use "sass:map";
-@use "@angular/material" as mat;
-mat.$theme-ignore-duplication-warnings: true;
-
-@include mat.core();
-
-:root{
-  --border-color: rgba(0,0,0,.2);
+:root {
+  --midleo-primary: #3498db;
+  --midleo-primary-dark: #2980b9;
+  --midleo-primary-light: #e8f4fc;
+  --midleo-primary-hover: #d0eaf8;
+  --midleo-surface: #f5f7fa;
+  --midleo-surface-elevated: #ffffff;
+  --midleo-text: #1a2332;
+  --midleo-text-muted: #5c6b7a;
+  --midleo-border: rgba(0, 0, 0, 0.1);
+  --midleo-danger: #e74c3c;
+  --midleo-danger-light: #fdecea;
+  --midleo-radius: 8px;
+  --midleo-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --midleo-toolbar-height: 52px;
+  --border-color: var(--midleo-border);
 }
-$midleo-primary: (
-     50 : #e2f2f6,
-    100 : #b7deea,
-    200 : #87c9dc,
-    300 : #57b3cd,
-    400 : #33a2c3,
-    500 : #3498DB,
-    600 : #0d8ab1,
-    700 : #0b7fa8,
-    800 : #0875a0,
-    900 : #046391,
-    A100 : #bde6ff,
-    A200 : #8ad3ff,
-    A400 : #57c1ff,
-    A700 : #3db7ff,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #000000,
-        400 : #ffffff,
-        500 : #ffffff,
-        600 : #ffffff,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #000000,
-        A700 : #000000,
-    )
-);
-
-$midleo-accent: (
-     50 : #e0f9ff,
-    100 : #b3f0ff,
-    200 : #80e6ff,
-    300 : #4ddbff,
-    400 : #26d4ff,
-    500 : #3498DB,
-    600 : #00c7ff,
-    700 : #00c0ff,
-    800 : #00b9ff,
-    900 : #00adff,
-    A100 : #ffffff,
-    A200 : #f2faff,
-    A400 : #bfe8ff,
-    A700 : #a6dfff,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #000000,
-        400 : #000000,
-        500 : #ffffff,
-        600 : #ffffff,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #000000,
-        A700 : #000000,
-    )
-);
-
-$midleo-theme-primary: mat.define-palette($midleo-primary);
-$midleo-theme-accent: mat.define-palette($midleo-accent);
-$midleo-theme-warn: mat.define-palette(mat.$red-palette);
-
-$midleo-theme: mat.define-light-theme((
- color: (
-   primary: $midleo-theme-primary,
-   accent: $midleo-theme-accent,
-   warn: $midleo-theme-warn
- ),
- density: 0,
-));
-
-@include mat.all-component-themes($midleo-theme);
-
-$midleo-dark-primary: mat.define-palette($midleo-accent);
-$midleo-dark-accent:  mat.define-palette(mat.$amber-palette, A200, A100, A400);
-$midleo-dark-warn:    mat.define-palette(mat.$deep-orange-palette);
-$midleo-dark-theme: mat.define-dark-theme((
- color: (
-   primary: $midleo-dark-primary,
-   accent: $midleo-dark-accent,
-   warn: $midleo-dark-warn
- ),
- density: 0,
-));
 
 .midleo-dark-theme {
-  --border-color: rgba(255,255,255,.2);
-  @include mat.all-component-themes($midleo-dark-theme);
-  .midleo-dark-theme .mdc-list-item--with-leading-icon .mdc-list-item__start, .midleo-dark-theme .mdc-list-item--with-trailing-icon .mdc-list-item__end{
-    color:#fff!important;
-  }
+  --midleo-primary: #5dade2;
+  --midleo-primary-dark: #3498db;
+  --midleo-primary-light: #1e3a4f;
+  --midleo-primary-hover: #254a63;
+  --midleo-surface: #121820;
+  --midleo-surface-elevated: #1a2332;
+  --midleo-text: #e8edf2;
+  --midleo-text-muted: #9aa8b8;
+  --midleo-border: rgba(255, 255, 255, 0.12);
+  --midleo-danger-light: #3d1f1f;
+  --border-color: var(--midleo-border);
+  color-scheme: dark;
 }
+
 .midleo-light-theme {
-  --border-color: rgba(0,0,0,.2);
+  color-scheme: light;
 }
-.alert{position:relative;padding:.75rem 1.25rem;margin-bottom:1rem;border:1px solid transparent;border-radius:.25rem}
-.alert-heading{color:inherit}
-.alert-link{font-weight:700}
-.alert-dismissible{padding-right:4rem}
-.alert-dismissible .close{position:absolute;top:0;right:0;padding:.75rem 1.25rem;color:inherit}
-.alert-primary{color:#004085;background-color:#cce5ff;border-color:#b8daff}
-.alert-primary hr{border-top-color:#9fcdff}
-.alert-primary .alert-link{color:#002752}
-.alert-secondary{color:#383d41;background-color:#e2e3e5;border-color:#d6d8db}
-.alert-secondary hr{border-top-color:#c8cbcf}
-.alert-secondary .alert-link{color:#202326}
-.alert-success{color:#155724;background-color:#d4edda;border-color:#c3e6cb}
-.alert-success hr{border-top-color:#b1dfbb}
-.alert-success .alert-link{color:#0b2e13}
-.alert-info{color:#0c5460;background-color:#d1ecf1;border-color:#bee5eb}
-.alert-info hr{border-top-color:#abdde5}
-.alert-info .alert-link{color:#062c33}
-.alert-warning{color:#856404;background-color:#fff3cd;border-color:#ffeeba}
-.alert-warning hr{border-top-color:#ffe8a1}
-.alert-warning .alert-link{color:#533f03}
-.alert-danger{color:#721c24;background-color:#f8d7da;border-color:#f5c6cb}
-.alert-danger hr{border-top-color:#f1b0b7}
-.alert-danger .alert-link{color:#491217}
-.alert-light{color:#818182;background-color:#fefefe;border-color:#fdfdfe}
-.alert-light hr{border-top-color:#ececf6}
-.alert-light .alert-link{color:#686868}
-.alert-dark{color:#1b1e21;background-color:#d6d8d9;border-color:#c6c8ca}
-.alert-dark hr{border-top-color:#b9bbbe}
-.alert-dark .alert-link{color:#040505}
+
+.mat-toolbar.mat-primary,
+.app-toolbar {
+  background: linear-gradient(135deg, var(--midleo-primary) 0%, var(--midleo-primary-dark) 100%) !important;
+  color: #fff;
+  min-height: var(--midleo-toolbar-height);
+  height: var(--midleo-toolbar-height);
+  padding: 0 8px 0 4px;
+  box-shadow: var(--midleo-shadow);
+}
+
+.midleo-dark-theme .mat-toolbar.mat-primary,
+.midleo-dark-theme .app-toolbar {
+  background: linear-gradient(135deg, #1a5276 0%, #0e3350 100%) !important;
+}
+
+.midleo-dark-theme .mdc-list-item--with-leading-icon .mdc-list-item__start,
+.midleo-dark-theme .mdc-list-item--with-trailing-icon .mdc-list-item__end {
+  color: var(--midleo-text-muted) !important;
+}
+
+.midleo-dark-theme .mat-drawer-side {
+  border-right-color: var(--midleo-border);
+}
+
+.alert {
+  position: relative;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--midleo-radius);
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.midleo-dark-theme .alert-danger {
+  color: #f5c6cb;
+  background-color: #3d1f1f;
+  border-color: #5c2a2a;
+}
+
+.alert-info {
+  color: #0c5460;
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+}

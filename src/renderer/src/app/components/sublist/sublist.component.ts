@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { DataService } from '../../common/data.service';
+import { ElectronService } from '../../core/electron.service';
 import { Router , NavigationEnd } from '@angular/router';
 import { MatSort } from '@angular/material/sort'; 
 import { MatPaginator } from '@angular/material/paginator'; 
@@ -8,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import * as XLSX from 'xlsx';
 
 @Component({
+  standalone: false,
   selector: 'app-sublist-component',
   templateUrl: './sublist.component.html',
   styleUrls: ['../main/qmcontent.css']
@@ -27,7 +29,7 @@ export class SubListComponent implements OnInit, OnDestroy {
   @ViewChild('SUBLSort', {static: true}) SUBLSort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(public dataServ: DataService, public dialog: MatDialog, private router: Router) {
+  constructor(public dataServ: DataService, public dialog: MatDialog, private router: Router, private electron: ElectronService) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
         if (this.dataServ.jsonkeychanged) { this.dataServ.sublist = []; }
@@ -40,34 +42,18 @@ export class SubListComponent implements OnInit, OnDestroy {
     if (this.dataServ.jsonkeychanged) { this.dataServ.sublist = []; }
     this.getSUBL();
   }
-  getSUBL() {
+  async getSUBL() {
 
   this.dataServ.selectedQmgr = this.dataServ.arrQMGRtemp.name;
-//  this.dataServ.systemobj = thissysobj;
-//  this.dataServ.emptyobj = thisemptyobj;
 
   if (!this.dataServ.sublist || this.dataServ.sublist.length < 1) {
     this.dataServ.jsonkeychanged = false;
     this.dataServ.sublist = [];
-//    this.dataServ.sublistreply = [];
-    const QMGRinput = {
-      type: 'READ',
-      hostname: this.dataServ.arrQMGRtemp.hostname,
-      channel: this.dataServ.arrQMGRtemp.channel,
-      port: this.dataServ.arrQMGRtemp.port,
-      qmanager: this.dataServ.arrQMGRtemp.name,
-      function: 'SUBS',
-      systemobj: this.dataServ.systemobj,
-      ssl: this.dataServ.arrQMGRtemp.ssl!=''?this.dataServ.arrQMGRtemp.ssl:null,
-      sslkey: this.dataServ.arrQMGRtemp.sslkey!=''?this.dataServ.arrQMGRtemp.sslkey:null,
-      sslpass: this.dataServ.arrQMGRtemp.sslpass!=''?this.dataServ.arrQMGRtemp.sslpass:null,
-      sslcipher: this.dataServ.arrQMGRtemp.sslcipher!=''?this.dataServ.arrQMGRtemp.sslcipher:null
-    };
     let qmreply: any;
     try {
-      qmreply = JSON.parse(window.electronIpcSendSync('execPCFQD', JSON.stringify(QMGRinput)));
+      qmreply = await this.electron.execPcfqd(this.dataServ.buildMqReadPayload('SUBS', true));
       this.dataServ.dataerr = false;
-    } catch (e) {
+    } catch {
       qmreply = '';
       this.dataServ.dataerr = true;
     }

@@ -3,7 +3,7 @@
 
   <table class="table table-responsive" style="width:100%" cellspacing="0">
   <tr *ngFor="let qichild of QIdata | keyvalue">
-    <td style = "text-align:right;padding-right: 10px;padding:5px;border-bottom: 1px solid #e0e0e0!important;">{{dataServ.objmapping.get(qichild.key)}}</td>
+    <td style = "text-align:right;padding-right: 10px;padding:5px;border-bottom: 1px solid #e0e0e0!important;">{{dataServ.objmapping.get($any(qichild.key))}}</td>
     <td style = "text-align: left;padding:5px;border-bottom: 1px solid #e0e0e0!important;">{{qichild.value}}</td>
   </tr>
   </table>

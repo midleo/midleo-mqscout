@@ -1,38 +1,82 @@
-<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
-  <mat-card appearance="outlined" class="midcard" *ngIf="!this.dataServ.loadthis">
-  	<mat-card-header>
-    <mat-card-title>Welcome to MidlEO</mat-card-title>
-    <mat-card-subtitle>Middleware Enterprise Organizer</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-accordion>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          Add new qmanager and write down all the details for the connection
-        </mat-expansion-panel-header>
-        <img src="../assets/1.jpg" width="700" height="535" />
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          Select from the menu the desired Qmanager
-        </mat-expansion-panel-header>
-        <img src="../assets/2.jpg" width="700" height="535" />
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          Browse the attributes for the Qmanager, Queues, Channels, Authority, Subscriptions, Topics
-        </mat-expansion-panel-header>
-        <img src="../assets/3.jpg" width="700" height="535" />
-      </mat-expansion-panel>
-    </mat-accordion>
-    <br><br><br><br>
-  </mat-card-content>
-</mat-card>
-<mat-card appearance="outlined" *ngIf="this.dataServ.loadthis"
-   style="display: flex; justify-content: center; align-items: center">
-  <mat-progress-spinner
-    color="primary"
-    mode="indeterminate">
-  </mat-progress-spinner>
-</mat-card>
+<div class="page-container">
+  <mat-card appearance="outlined" class="content-card welcome-card" *ngIf="!dataServ.loadthis">
+    <mat-card-header>
+      <div class="welcome-header">
+        <mat-icon class="welcome-icon">explore</mat-icon>
+        <div>
+          <mat-card-title>Welcome to Midleo MQScout</mat-card-title>
+          <mat-card-subtitle>Enterprise explorer for IBM MQ queue managers</mat-card-subtitle>
+        </div>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p class="welcome-intro">
+        Connect to your queue managers, browse objects, and export data — all from your desktop.
+      </p>
+
+      <div class="quick-steps">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-body">
+            <h3>Add a queue manager</h3>
+            <p>Click <strong>Add queue manager</strong> in the toolbar and enter connection details.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-body">
+            <h3>Select from the sidebar</h3>
+            <p>Expand a group and choose a queue manager to connect.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-body">
+            <h3>Browse &amp; export</h3>
+            <p>View queues, channels, topics, and more. Export to Excel when needed.</p>
+          </div>
+        </div>
+      </div>
+
+      <mat-accordion class="screenshots-accordion">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>add_circle_outline</mat-icon>
+              Adding a queue manager
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <img src="assets/1.jpg" class="screenshot" alt="Add queue manager screenshot" />
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>menu</mat-icon>
+              Selecting a queue manager
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <img src="assets/2.jpg" class="screenshot" alt="Select queue manager screenshot" />
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>table_chart</mat-icon>
+              Browsing MQ objects
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <img src="assets/3.jpg" class="screenshot" alt="Browse MQ objects screenshot" />
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card appearance="outlined" class="content-card" *ngIf="dataServ.loadthis">
+    <mat-card-content>
+      <div class="loading-panel">
+        <mat-progress-spinner color="primary" mode="indeterminate" diameter="48"></mat-progress-spinner>
+        <p>Connecting to queue manager…</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

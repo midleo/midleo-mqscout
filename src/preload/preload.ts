@@ -1,27 +1,28 @@
-import { ipcRenderer } from 'electron';
+import { contextBridge, ipcRenderer } from 'electron';
+import { IPC_CHANNELS } from '../shared/ipc-channels';
+import type { MidleoApi } from '../shared/midleo-api';
 
-console.log('preload.js loaded');
+const ALLOWED_CHANNELS = new Set<string>(Object.values(IPC_CHANNELS));
 
-window.electronIpcSend = (channel: string, ...arg: any) => {
-  ipcRenderer.send(channel, arg);
+function assertChannel(channel: string): void {
+  if (!ALLOWED_CHANNELS.has(channel)) {
+    throw new Error(`Blocked IPC channel: ${channel}`);
+  }
+}
+
+const midleoApi: MidleoApi = {
+  readQmList: () => {
+    assertChannel(IPC_CHANNELS.READ_QM_LIST);
+    return ipcRenderer.invoke(IPC_CHANNELS.READ_QM_LIST);
+  },
+  updateQm: (data: string) => {
+    assertChannel(IPC_CHANNELS.UPDATE_QM);
+    return ipcRenderer.invoke(IPC_CHANNELS.UPDATE_QM, data);
+  },
+  execPcfqd: (payload: string) => {
+    assertChannel(IPC_CHANNELS.EXEC_PCFQD);
+    return ipcRenderer.invoke(IPC_CHANNELS.EXEC_PCFQD, payload);
+  },
 };
 
-window.electronIpcSendSync = (channel: string, ...arg: any) => {
-  return ipcRenderer.sendSync(channel, arg);
-};
-
-window.electronIpcOn = (channel: string, listener: (event: any, ...arg: any) => void) => {
-  ipcRenderer.on(channel, listener);
-};
-
-window.electronIpcOnce = (channel: string, listener: (event: any, ...arg: any) => void) => {
-  ipcRenderer.once(channel, listener);
-};
-
-window.electronIpcRemoveListener = (channel: string, listener: (event: any, ...arg: any) => void) => {
-  ipcRenderer.removeListener(channel, listener);
-};
-
-window.electronIpcRemoveAllListeners = (channel: string) => {
-  ipcRenderer.removeAllListeners(channel);
-};
+contextBridge.exposeInMainWorld('midleoApi', midleoApi);

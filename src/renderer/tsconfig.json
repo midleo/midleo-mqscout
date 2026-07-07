@@ -5,19 +5,16 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "module": "ES2022",
+    "moduleResolution": "bundler",
     "importHelpers": true,
-    "target": "es6",     
-    "typeRoots": [
-      "node_modules/@types",
-      "../types"
-    ],
-    "lib": [
-      "es2022",
-      "dom"
-    ]
+    "target": "ES2022",
+    "useDefineForClassFields": false,
+    "experimentalDecorators": true,
+    "strict": false,
+    "strictPropertyInitialization": false,
+    "ignoreDeprecations": "6.0",
+    "typeRoots": ["node_modules/@types", "../types"],
+    "lib": ["ES2022", "dom"]
   }
 }

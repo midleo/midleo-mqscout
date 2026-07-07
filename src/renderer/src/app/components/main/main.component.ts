@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { DataService } from '../../common/data.service';
 
 @Component({
+  standalone: false,
   selector: 'app-componentmain',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']

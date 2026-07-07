@@ -1,7 +1,57 @@
-.mat-form-field, .mat-mdc-form-field {
-    display: block;
-    width:300px;
+.dialog-title-icon {
+  vertical-align: middle;
+  margin-right: 8px;
+  color: var(--midleo-primary);
 }
-.mat-mdc-dialog-content{
-    max-height:fit-content;
+
+.qm-dialog-content {
+  min-width: 360px;
+  max-height: none !important;
+  padding-top: 8px !important;
+}
+
+.form-section {
+  padding: 8px 0 4px;
+}
+
+.section-label {
+  margin: 0 0 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--midleo-text-muted);
+}
+
+.mat-mdc-form-field {
+  display: block;
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.form-row .flex-2 {
+  flex: 2;
+}
+
+.form-row .flex-1 {
+  flex: 1;
+}
+
+mat-divider {
+  margin: 12px 0;
+}
+
+.btn-spinner {
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+::ng-deep .qm-dialog-panel .mat-mdc-dialog-surface {
+  border-radius: 12px !important;
 }

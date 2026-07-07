@@ -17,7 +17,7 @@ import { CHListComponent } from './components/chlist/chlist.component';
 import { AuthListComponent } from './components/authlist/authlist.component';
 import { TopicListComponent } from './components/topiclist/topiclist.component';
 import { SubListComponent } from './components/sublist/sublist.component';
-import { MenuListItemComponent } from './components/menu-list-item/menu-list-item.component';
+import { MenuListItemComponent, ConfirmDeleteDialogComponent } from './components/menu-list-item/menu-list-item.component';
 import { NavService } from './components/menu-list-item/nav.service';
 import { DataService } from './common/data.service';
 
@@ -27,6 +27,7 @@ import { DataService } from './common/data.service';
     AppComponent,
     MainContentComponent,
     MenuListItemComponent,
+    ConfirmDeleteDialogComponent,
     DialogContentQMDialogComponent,
     DialogDataQIDialogComponent,
     QMGRInfoComponent,
@@ -50,7 +51,7 @@ import { DataService } from './common/data.service';
   exports: [
     MatDialogModule
   ],
-  providers: [NavService, DataService],
+  providers: [NavService],
 //  entryComponents: [ DialogContentQMDialogComponent, DialogDataQIDialogComponent],
   bootstrap: [AppComponent]
 })

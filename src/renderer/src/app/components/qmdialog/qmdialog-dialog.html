@@ -1,46 +1,84 @@
-<h2 mat-dialog-title>Add new Qmanager</h2>
-<mat-dialog-content class="mat-typography middialog" [formGroup]="qmForm">
-     <mat-form-field>
-          <input matInput placeholder="Group" required formControlName="group" name='group'>
-          <mat-error *ngIf="hasError('group', 'required')">should not be empty</mat-error>
-          <mat-hint align="end">Prod, Test, QMGRGROUP1</mat-hint>
-     </mat-form-field>
-     <mat-form-field>
-          <input matInput placeholder="Qmanager name" required formControlName="name" name='name'>
-          <mat-error *ngIf="hasError('name', 'required')">Min length must be 6</mat-error>
-     </mat-form-field>
-     <mat-form-field>
-          <input matInput placeholder="Qmanager hostname" required formControlName="hostname" name='hostname'>
-          <mat-error *ngIf="hasError('hostname', 'required')">Min length must be 6</mat-error>
-     </mat-form-field>
-     <mat-form-field>
-          <input matInput type="number" placeholder="Qmanager port" required formControlName="port" name='port'>
-          <mat-error *ngIf="hasError('port', 'required')">should not be empty</mat-error>
-     </mat-form-field>
-     <mat-form-field>
-          <input matInput placeholder="Qmanager channel" required formControlName="channel" name='channel'>
-          <mat-error *ngIf="hasError('channel', 'required')">should not be empty</mat-error>
-     </mat-form-field>
-     <mat-form-field>
-          <mat-select matInput placeholder="SSL" formControlName="ssl" #ssl name='ssl'>
-               <mat-option value="">No</mat-option>
-               <mat-option value="yes">Yes</mat-option>
-          </mat-select>
-     </mat-form-field>
-     <mat-form-field *ngIf="ssl.value == 'yes'">
-          <input matInput placeholder="SSL Key" formControlName="sslkey" name='sslkey'>
-          <mat-hint align="end">c:\key.jks</mat-hint>
-     </mat-form-field>
-     <mat-form-field *ngIf="ssl.value == 'yes'">
-          <input matInput placeholder="SSL Key password" formControlName="sslpass" name='sslpass'>
-          <mat-hint align="end">123456</mat-hint>
-     </mat-form-field>
-     <mat-form-field *ngIf="ssl.value == 'yes'">
-          <input matInput placeholder="SSL Cipher" formControlName="sslcipher" name='sslcipher'>
-          <mat-hint align="end">TLS_RSA_WITH_AES_256_GCM_SHA384</mat-hint>
-     </mat-form-field>
+<h2 mat-dialog-title>
+  <mat-icon class="dialog-title-icon">hub</mat-icon>
+  Add queue manager
+</h2>
+
+<mat-dialog-content class="qm-dialog-content" [formGroup]="qmForm">
+  <section class="form-section">
+    <h3 class="section-label">Connection</h3>
+    <mat-form-field appearance="outline">
+      <mat-label>Group</mat-label>
+      <input matInput formControlName="group" autocomplete="off">
+      <mat-hint>e.g. PROD, TEST, DEV</mat-hint>
+      <mat-error *ngIf="hasError('group', 'required')">Group is required</mat-error>
+      <mat-error *ngIf="hasError('group', 'minlength')">At least 2 characters</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Queue manager name</mat-label>
+      <input matInput formControlName="name" autocomplete="off">
+      <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+    </mat-form-field>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="flex-2">
+        <mat-label>Hostname</mat-label>
+        <input matInput formControlName="hostname" autocomplete="off">
+        <mat-error *ngIf="hasError('hostname', 'required')">Hostname is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="flex-1">
+        <mat-label>Port</mat-label>
+        <input matInput type="number" formControlName="port" autocomplete="off">
+        <mat-error *ngIf="hasError('port', 'required')">Port is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Channel</mat-label>
+      <input matInput formControlName="channel" autocomplete="off">
+      <mat-error *ngIf="hasError('channel', 'required')">Channel is required</mat-error>
+    </mat-form-field>
+  </section>
+
+  <mat-divider></mat-divider>
+
+  <section class="form-section">
+    <h3 class="section-label">SSL (optional)</h3>
+    <mat-form-field appearance="outline">
+      <mat-label>Enable SSL</mat-label>
+      <mat-select formControlName="ssl" #ssl>
+        <mat-option value="">No</mat-option>
+        <mat-option value="yes">Yes</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <ng-container *ngIf="ssl.value === 'yes'">
+      <mat-form-field appearance="outline">
+        <mat-label>SSL keystore path</mat-label>
+        <input matInput formControlName="sslkey" autocomplete="off">
+        <mat-hint>e.g. /path/to/keystore.jks</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Keystore password</mat-label>
+        <input matInput type="password" formControlName="sslpass" autocomplete="off">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Cipher suite</mat-label>
+        <input matInput formControlName="sslcipher" autocomplete="off">
+        <mat-hint>e.g. TLS_RSA_WITH_AES_256_GCM_SHA384</mat-hint>
+      </mat-form-field>
+    </ng-container>
+  </section>
 </mat-dialog-content>
+
 <mat-dialog-actions align="end">
-     <button mat-button mat-dialog-close>Cancel</button>
-     <button mat-raised-button color="primary" [disabled]="!qmForm.valid" (click)="createQM()">Add</button>
+  <button mat-button mat-dialog-close [disabled]="isSaving">Cancel</button>
+  <button mat-flat-button color="primary" [disabled]="!qmForm.valid || isSaving" (click)="createQM()">
+    <mat-spinner *ngIf="isSaving" diameter="18" class="btn-spinner"></mat-spinner>
+    <span *ngIf="!isSaving">Save connection</span>
+    <span *ngIf="isSaving">Saving…</span>
+  </button>
 </mat-dialog-actions>

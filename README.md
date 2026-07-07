@@ -1,80 +1,67 @@
 # Midleo MQScout
 
-Source code for MQScout - Explorer for IBM Mq server
+Enterprise desktop explorer for IBM MQ queue managers. Built with **Electron 43**, **Angular 22**, and **Angular Material**.
 
+## Prerequisites
+
+- Node.js 22+
+- Java runtime (for `midleo.jar`)
+- IBM MQ client libraries (required by `midleo.jar`)
 
 ## Getting started
 
+1. Download the latest `midleo.jar` from [GitLab](https://gitlab.com/vasilev.link/public/-/tree/master/java/midleo_mq) into `~/.midleo/`.
+2. Install dependencies and build:
 
 ```bash
-$ Download latest midleo.jar from https://gitlab.com/vasilev.link/public/-/tree/master/java/midleo_mq to YOUR_HOME_FOLDER/.midleo
-$ git clone https://github.com/midleo/midleo-mqscout.git
-$ cd midleo-mqscout
-$ npm install
-$ npm run build:dev:all
-$ npm start
+npm install
+npm run build:dev:all
+npm start
 ```
 
-## Take a look
+## Production release
 
-Some screenshots from the Midleo MQScout:
+```bash
+npm run release        # package for current OS
+npm run release:mac    # macOS DMG + zip
+npm run release:win    # Windows NSIS installer
+npm run release:linux  # AppImage + deb
+```
 
-### New qmmanager definition
-![The Midleo mqscout app](https://github.com/midleo/midleo-mqscout/blob/master/github.assets/mqscout_browse.jpg?raw=true)
+Installers are written to `release-builds/`.
 
+## Security
+
+- Renderer runs with **context isolation** and **sandbox** enabled.
+- IPC is restricted to an allowlisted `midleoApi` bridge.
+- MQ commands execute via `execFile` (no shell interpolation).
+- SSL passwords are encrypted at rest with Electron `safeStorage` when available.
 
 ## NPM scripts
 
-### Builds
-
-This builds a project and places the output in the */dist* folder.
-
 | Command | Description |
 | --- | --- |
-| `npm run build:dev:all` | Developer builds of all projects |
-| `npm run build:prod:all` | Production builds of all projects |
-| `npm run build:dev:main` | Developer build of the *Electron main* project |
-| `npm run build:prod:main` | Production build of the *Electron main* project |
-| `npm run build:dev:renderer` | Developer build of the *Electron renderer* project |
-| `npm run build:prod:renderer` | Production build of the *Electron renderer* project |
-| `npm run build:dev:preload` | Developer build of the *Electron preload* project |
-| `npm run build:prod:preload` | Production build of the *Electron preload* project |
+| `npm run build:dev:all` | Development builds (renderer, main, preload) |
+| `npm run build:prod:all` | Production builds |
+| `npm run build:watch:all` | Watch mode for all targets |
+| `npm run lint` | Angular lint |
+| `npm run test` | Unit tests (headless Chrome) |
+| `npm run release` | Production build + electron-builder package |
 
-### Watch
+## License
 
-Start watching for source code changes, and builds after each source code change.
+GPL-3.0 — see [LICENSE](LICENSE).
 
-| Command | Description |
-| --- | --- |
-| `npm run build:watch:all` | Watch all projects |
-| `npm run build:watch:main` | Watch the *Electron main* project |
-| `npm run build:watch:renderer` | Watch the *Electron renderer* project |
-| `npm run build:watch:preload` | Watch the *Electron preload* project |
+## Troubleshooting
 
-### Tests
+### White screen or `app.whenReady` crash
 
-Test commands.
+If `require('electron')` fails or the window stays white, check whether `ELECTRON_RUN_AS_NODE=1` is set in your environment (some IDE terminals set this). The `npm start` script unsets it on macOS/Linux. Run manually:
 
-| Command | Description |
-| --- | --- |
-| `npm run test:test` | Executes all Angular unit-tests |
-| `npm run test:e2e` | Executes Angular end-2-end tests |
-| `npm run test:lint` | Angular lint |
+```bash
+env -u ELECTRON_RUN_AS_NODE npm start
+```
 
-### Updates
+### npm `allowScripts` warnings
 
-Commands for updating NPM modules.
-
-| Command | Description |
-| --- | --- |
-| `npm run update:angular` | Easy update to latest stable Angular |
-| `npm run update:electron` | Easy update to latest stable Electron |
-| `npm run update:webpack` | Easy update to latest stable WebPack |
-
-### Packaging
-
-| Command | Description |
-| --- | --- |
-| `npm run package` | Package current */dist* folder into an app in the */release-builds* folder |
-| `npm run release` | First build a production build, then package */dist* folder into an app in the */release-builds* folder |
-
+Dependency install scripts are gated by the `allowScripts` field in `package.json`. This repo approves the packages required for esbuild, Angular, and electron-builder. After pulling changes, run `npm install` once; no extra approval steps are needed.

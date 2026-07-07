@@ -1,28 +1,79 @@
-<div class="container">
-<mat-toolbar color="primary" class="toolbar">
-    <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-    <h1 class="app-name">
-      <a href="https://midleo.com/?" target="_blank">
-        <img src="../assets/midleo-logo.png" alt="Midleo MQScout" style="height:25px;">
+<div class="app-shell" [class.is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="toolbar app-toolbar app-drag-region">
+    <button
+      mat-icon-button
+      class="app-no-drag"
+      (click)="toggleSidenav()"
+      matTooltip="Toggle navigation"
+      aria-label="Toggle navigation">
+      <mat-icon>{{ sidenavOpened ? 'menu_open' : 'menu' }}</mat-icon>
+    </button>
+
+    <div class="brand app-no-drag">
+      <a href="https://midleo.com/" target="_blank" rel="noopener noreferrer" class="brand-link">
+        <img src="assets/midleo-logo.png" alt="Midleo MQScout" class="brand-logo">
       </a>
-    </h1>
+      <span class="brand-subtitle">MQScout</span>
+    </div>
+
     <span class="fill-remaining-space"></span>
-    <span>
-      <a mat-button (click)="openQMDialog()">Add new QM</a>&nbsp;&nbsp;
-    </span>
-    <span>
-     <a mat-icon-button title="Light theme" aria-label="Light theme" (click)="onSetTheme('midleo-light-theme')"><mat-icon>wb_sunny</mat-icon></a>
-     <a mat-icon-button title="Dark theme" aria-label="Dark theme" (click)="onSetTheme('midleo-dark-theme')"><mat-icon>brightness_2</mat-icon></a>
-    </span>
-</mat-toolbar>
-<mat-sidenav-container class="sidenav-container" >
-    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
-                 [fixedInViewport]="mobileQuery.matches" [opened]="true">
-      <mat-nav-list [style.marginTop.px]="40">
-        <app-menu-list-item *ngFor="let item of dataServ.arrQMGR | keyvalue" [item]="item.value" [itemkey]="item.key"></app-menu-list-item>
+
+    <button
+      mat-flat-button
+      class="add-qm-btn app-no-drag"
+      (click)="openQMDialog()">
+      <mat-icon>add</mat-icon>
+      Add queue manager
+    </button>
+
+    <mat-button-toggle-group
+      class="theme-toggle app-no-drag"
+      [value]="activeTheme"
+      (change)="onSetTheme($event.value)"
+      hideSingleSelectionIndicator>
+      <mat-button-toggle value="midleo-light-theme" matTooltip="Light theme" aria-label="Light theme">
+        <mat-icon>light_mode</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="midleo-dark-theme" matTooltip="Dark theme" aria-label="Dark theme">
+        <mat-icon>dark_mode</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="sidenav-container" autosize>
+    <mat-sidenav
+      #snav
+      class="app-sidenav"
+      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches"
+      [(opened)]="sidenavOpened">
+
+      <div class="sidenav-header">
+        <mat-icon>hub</mat-icon>
+        <span>Queue managers</span>
+      </div>
+
+      <mat-nav-list class="nav-list" *ngIf="dataServ.arrQMGR?.length; else emptyNav">
+        <app-menu-list-item
+          *ngFor="let item of dataServ.arrQMGR; let i = index; trackBy: trackByGroupName"
+          [item]="item"
+          [itemkey]="i"
+          [groupIndex]="i">
+        </app-menu-list-item>
       </mat-nav-list>
+
+      <ng-template #emptyNav>
+        <div class="sidenav-empty">
+          <mat-icon>cloud_off</mat-icon>
+          <p>No queue managers configured</p>
+          <button mat-stroked-button color="primary" (click)="openQMDialog()">
+            <mat-icon>add</mat-icon> Add first QM
+          </button>
+        </div>
+      </ng-template>
     </mat-sidenav>
-    <mat-sidenav-content>
+
+    <mat-sidenav-content class="main-content">
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
