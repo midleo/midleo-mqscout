@@ -58,6 +58,39 @@ body {
   padding: 16px 20px !important;
 }
 
+/* Card header layout */
+.card-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.card-header-titles {
+  min-width: 0;
+}
+
+.card-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Queues view: match table alignment with other MQScout pages */
+.queues-page-container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.queues-content-card .mat-mdc-card-header {
+  padding: 16px 16px 8px !important;
+}
+
+.queues-content-card .mat-mdc-card-content {
+  padding: 16px !important;
+}
+
 /* Data table toolbar */
 .data-toolbar {
   display: flex;
@@ -96,6 +129,16 @@ body {
 
 .data-table {
   width: 100%;
+}
+
+.queue-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.open-browse-btn {
+  white-space: nowrap;
 }
 
 .data-table th.mat-mdc-header-cell {
@@ -150,6 +193,51 @@ body {
   color: var(--midleo-text) !important;
 }
 
+.midleo-dark-theme .mat-mdc-dialog-container {
+  color: var(--midleo-text);
+}
+
+.midleo-dark-theme .mat-mdc-dialog-surface {
+  background: var(--midleo-surface-elevated) !important;
+  color: var(--midleo-text) !important;
+}
+
+.midleo-dark-theme .mat-mdc-dialog-title,
+.midleo-dark-theme .mat-mdc-dialog-content,
+.midleo-dark-theme .mat-mdc-dialog-actions {
+  color: var(--midleo-text) !important;
+}
+
+.midleo-dark-theme .mat-mdc-dialog-actions .mat-mdc-button-base {
+  --mdc-text-button-label-text-color: var(--midleo-text);
+}
+
+.qi-dialog-panel .mat-mdc-dialog-surface {
+  border-radius: 12px !important;
+}
+
+.qi-dialog-table {
+  border-collapse: collapse;
+}
+
+.qi-dialog-table .qi-key-cell,
+.qi-dialog-table .qi-value-cell {
+  padding: 5px;
+  border-bottom: 1px solid var(--midleo-border);
+}
+
+.qi-dialog-table .qi-key-cell {
+  text-align: right;
+  padding-right: 10px;
+  color: var(--midleo-text-muted);
+  white-space: nowrap;
+}
+
+.qi-dialog-table .qi-value-cell {
+  text-align: left;
+  word-break: break-word;
+}
+
 .midleo-dark-theme .content-card .mat-mdc-card-subtitle,
 .midleo-dark-theme .mat-mdc-card-subtitle {
   color: var(--midleo-text-muted) !important;
@@ -185,6 +273,23 @@ body {
 .midleo-dark-theme .data-table th.mat-mdc-header-cell {
   background: var(--midleo-primary-light);
   color: var(--midleo-text);
+}
+
+.midleo-dark-theme .data-table {
+  background: var(--midleo-surface-elevated);
+}
+
+.midleo-dark-theme .data-table tr.mat-mdc-row {
+  background: var(--midleo-surface-elevated) !important;
+}
+
+.midleo-dark-theme .data-table td.mat-mdc-cell {
+  color: var(--midleo-text) !important;
+}
+
+.midleo-dark-theme .data-table th.mat-mdc-header-cell,
+.midleo-dark-theme .data-table td.mat-mdc-cell {
+  border-bottom-color: var(--midleo-border) !important;
 }
 
 .midleo-dark-theme .data-table tr.mat-mdc-row:hover {
@@ -276,4 +381,26 @@ body {
 
 .midleo-dark-theme .children-container {
   border-left-color: var(--midleo-border);
+}
+
+/* Dark theme — pagination */
+.midleo-dark-theme .mat-mdc-paginator {
+  background: var(--midleo-surface-elevated);
+  color: var(--midleo-text);
+  border-top: 1px solid var(--midleo-border);
+}
+
+.midleo-dark-theme .mat-mdc-paginator .mat-mdc-paginator-range-label,
+.midleo-dark-theme .mat-mdc-paginator .mat-mdc-select-value,
+.midleo-dark-theme .mat-mdc-paginator .mat-mdc-select-arrow {
+  color: var(--midleo-text-muted);
+}
+
+.midleo-dark-theme .mat-mdc-paginator .mat-mdc-icon-button,
+.midleo-dark-theme .mat-mdc-paginator .mat-mdc-icon-button .mat-mdc-button-persistent-ripple {
+  color: var(--midleo-text);
+}
+
+.midleo-dark-theme .mat-mdc-paginator .mat-mdc-icon-button[disabled] {
+  color: var(--midleo-text-muted);
 }

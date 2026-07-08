@@ -31,7 +31,9 @@
             ],
             "styles": [
               "src/renderer/src/styles.css",
-              "src/renderer/src/assets/themes/_midleo.scss"
+              "src/renderer/src/assets/themes/_midleo.scss",
+              "src/renderer/src/assets/roboto-minimal.css",
+              "src/renderer/src/assets/material-icons.css"
             ],
             "scripts": [],
             "baseHref": "./"

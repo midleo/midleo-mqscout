@@ -7,6 +7,7 @@ import { CHListComponent } from './components/chlist/chlist.component';
 import { AuthListComponent } from './components/authlist/authlist.component';
 import { TopicListComponent } from './components/topiclist/topiclist.component';
 import { SubListComponent } from './components/sublist/sublist.component';
+import { QueueBrowseComponent } from './components/queuebrowse/queuebrowse.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
     path:  'showQueues/:id',
     component:  QListComponent,
     runGuardsAndResolvers: 'always'
+  },
+  {
+    path: 'browseQueue/:id',
+    component: QueueBrowseComponent,
+    runGuardsAndResolvers: 'always',
   },
   {
     path:  'showChannels/:id',

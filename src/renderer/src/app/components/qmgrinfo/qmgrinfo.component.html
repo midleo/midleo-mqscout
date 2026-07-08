@@ -1,53 +1,105 @@
-<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
-  <mat-card appearance="outlined" class="midcard">
-  	<mat-card-header>
-    <mat-card-title>{{dataServ.selectedQmgr}}</mat-card-title>
-    <mat-card-subtitle>Qmanager</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content class="td-container" [hidden]="this.dataServ.dataerr">
-    <div style="justify-content: flex-end;display: flex;">
-      <table cellpadding="0" cellspacing="0" style="width:100px">
-        <tr>
-        <td style="border-right: 0px!important;">
-          <button mat-button (click)="dataServ.qmgrdata=[];getQMI()">Refresh</button>
-        </td>
-        </tr>
-      </table>
-  </div><br>
-    <mat-form-field>
-      <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Search Filter">
-    </mat-form-field>
-    <table [dataSource]="dataSource" mat-table matSort>
-      <ng-container matColumnDef="qmgrattr">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header class="header-align-right text-uppercase" arrowPosition="before"> Qmanager Attributes</th>
-      <td *matCellDef="let element" mat-cell class="header-align-right" width ="40%"> {{element.qmgrattr}} </td>
-      </ng-container>
-      <ng-container matColumnDef="qmgrdata">
-      <th *matHeaderCellDef mat-header-cell class="header-align-left"> </th>
-      <td *matCellDef="let element" mat-cell class="header-align-left" width ="60%"> {{element.qmgrdata}} </td>
-      </ng-container>
-      <tr *matHeaderRowDef="displayedQMColumns" mat-header-row></tr>
-      <tr *matRowDef="let row; columns: displayedQMColumns;" mat-row></tr>
-      </table>
-      <br><br>
-      <table [dataSource]="dataSourceCD" mat-table >
-        <ng-container matColumnDef="qmgrcd">
-        <th *matHeaderCellDef mat-header-cell class="header-align-right text-uppercase" arrowPosition="before"> Connection Details</th>
-        <td *matCellDef="let element" mat-cell class="header-align-right" width ="40%"> {{element.qmgrcd}} </td>
-        </ng-container>
-        <ng-container matColumnDef="qmgrcdv">
-        <th *matHeaderCellDef mat-header-cell class="header-align-left"> </th>
-        <td *matCellDef="let element" mat-cell class="header-align-left" width ="60%"> {{element.qmgrcdv}} </td>
-        </ng-container>
-        <tr *matHeaderRowDef="displayedCDColumns" mat-header-row></tr>
-        <tr *matRowDef="let row; columns: displayedCDColumns;" mat-row></tr>
+<div class="page-container">
+  <mat-card appearance="outlined" class="content-card">
+    <mat-card-header>
+      <mat-card-title>{{ dataServ.selectedQmgr }}</mat-card-title>
+      <mat-card-subtitle>Queue manager information</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="td-container" [hidden]="dataServ.dataerr">
+      <div class="data-toolbar">
+        <div class="data-toolbar-actions">
+          <button mat-stroked-button color="primary" (click)="dataServ.qmgrdata = []; getQMI()">
+            <mat-icon>refresh</mat-icon>
+            Refresh
+          </button>
+        </div>
+      </div>
+
+      <mat-form-field appearance="outline" class="search-field" subscriptSizing="dynamic">
+        <mat-label>Search attributes</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by name…" />
+      </mat-form-field>
+
+      <div class="table-scroll" *ngIf="dataServ.qmgrdata?.length; else emptyQmgrInfo">
+        <table [dataSource]="dataSource" mat-table matSort class="data-table">
+          <ng-container matColumnDef="qmgrattr">
+            <th
+              *matHeaderCellDef
+              mat-header-cell
+              mat-sort-header
+              class="header-align-right text-uppercase"
+              arrowPosition="before"
+            >
+              Qmanager Attributes
+            </th>
+            <td *matCellDef="let element" mat-cell class="header-align-right" width="40%">
+              {{ element.qmgrattr }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="qmgrdata">
+            <th *matHeaderCellDef mat-header-cell class="header-align-left"></th>
+            <td *matCellDef="let element" mat-cell class="header-align-left" width="60%">
+              {{ element.qmgrdata }}
+            </td>
+          </ng-container>
+
+          <tr *matHeaderRowDef="displayedQMColumns" mat-header-row></tr>
+          <tr *matRowDef="let row; columns: displayedQMColumns" mat-row></tr>
         </table>
-  </mat-card-content>
-  <mat-card-content class="td-container" *ngIf="this.dataServ.dataerr"><br>
-    <div class="alert alert-danger" >
-      <h4>Problem occured while establishing connecting to <b>{{dataServ.selectedQmgr}}</b>.<hr>
-      Please check the connection parameters, if the server is available, if the Qmanager is available or if you have opened firewall to the listener port.</h4>
-    </div>
-  </mat-card-content>
-</mat-card>
+      </div>
+
+      <br />
+
+      <div class="table-scroll">
+        <table [dataSource]="dataSourceCD" mat-table class="data-table">
+          <ng-container matColumnDef="qmgrcd">
+            <th
+              *matHeaderCellDef
+              mat-header-cell
+              class="header-align-right text-uppercase"
+              arrowPosition="before"
+            >
+              Connection Details
+            </th>
+            <td *matCellDef="let element" mat-cell class="header-align-right" width="40%">
+              {{ element.qmgrcd }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="qmgrcdv">
+            <th *matHeaderCellDef mat-header-cell class="header-align-left"></th>
+            <td *matCellDef="let element" mat-cell class="header-align-left" width="60%">
+              {{ element.qmgrcdv }}
+            </td>
+          </ng-container>
+
+          <tr *matHeaderRowDef="displayedCDColumns" mat-header-row></tr>
+          <tr *matRowDef="let row; columns: displayedCDColumns" mat-row></tr>
+        </table>
+      </div>
+
+      <ng-template #emptyQmgrInfo>
+        <div class="state-panel" *ngIf="!dataServ.loadthis">
+          <mat-icon>info</mat-icon>
+          <p>No queue manager attributes were returned.</p>
+        </div>
+      </ng-template>
+    </mat-card-content>
+
+    <mat-card-content class="td-container" *ngIf="dataServ.dataerr">
+      <div class="alert alert-danger">
+        <h4>
+          Problem occured while establishing connecting to
+          <b>{{ dataServ.selectedQmgr }}</b>.
+        </h4>
+        <hr />
+        <p>
+          Please check the connection parameters, if the server is available, if the Qmanager is
+          available or if you have opened firewall to the listener port.
+        </p>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

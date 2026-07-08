@@ -34,6 +34,8 @@ export class DataService {
   jsonkey: string | number;
   jsonsubkey: string | number;
   jsonkeychanged = false;
+  selectedQueueName?: string;
+  selectedQueueKey?: string | number;
   objmapping = new Map([
     [ 'QUEUE', 'Queue Name' ],
     [ 'TYPE', 'Queue Type' ],
@@ -67,6 +69,14 @@ export class DataService {
       sslkey: qm.sslkey ? qm.sslkey : null,
       sslpass: qm.sslpass ? qm.sslpass : null,
       sslcipher: qm.sslcipher ? qm.sslcipher : null,
+    };
+  }
+
+  buildQueueBrowsePayload(queue: string): Record<string, unknown> {
+    const base = this.buildMqReadPayload('QBROWSE');
+    return {
+      ...base,
+      queue,
     };
   }
 }

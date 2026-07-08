@@ -103,7 +103,17 @@ export class QListComponent implements OnInit, OnDestroy {
   }
   openQIDialog(thisid: number) {
     this.dataServ.qiid = thisid;
-    this.dialog.open(DialogDataQIDialogComponent, { minWidth: 400 });
+    this.dialog.open(DialogDataQIDialogComponent, {
+      minWidth: 400,
+      maxWidth: '95vw',
+      panelClass: 'qi-dialog-panel',
+    });
+  }
+
+  browseQueue(element: any) {
+    this.dataServ.selectedQueueName = element.name;
+    this.dataServ.selectedQueueKey = element.objkey;
+    this.router.navigate(['/browseQueue', this.dataServ.arrQMGRtemp.name]);
   }
   ExportTOExcel() {
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataServ.qlist);

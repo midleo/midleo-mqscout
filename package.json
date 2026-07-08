@@ -6,7 +6,7 @@
   "license": "GPL-3.0-or-later",
   "main": "./dist/main/main/main.js",
   "scripts": {
-    "start": "env -u ELECTRON_RUN_AS_NODE electron .",
+    "start": "cross-env-shell ELECTRON_RUN_AS_NODE= electron .",
     "build:dev:renderer": "ng build",
     "build:prod:renderer": "ng build --configuration production",
     "build:dev:main": "tsc -p src/main/tsconfig.json",
@@ -21,11 +21,11 @@
     "build:watch:all": "npm-run-all -p -r build:watch:renderer build:watch:main build:watch:preload",
     "lint": "ng lint",
     "test": "ng test --watch=false --browsers=ChromeHeadless",
-    "package": "env -u ELECTRON_RUN_AS_NODE npm run build:prod:all && electron-builder --dir",
-    "release": "env -u ELECTRON_RUN_AS_NODE npm run build:prod:all && electron-builder",
-    "release:mac": "env -u ELECTRON_RUN_AS_NODE npm run build:prod:all && electron-builder --mac",
-    "release:win": "env -u ELECTRON_RUN_AS_NODE npm run build:prod:all && electron-builder --win",
-    "release:linux": "env -u ELECTRON_RUN_AS_NODE npm run build:prod:all && electron-builder --linux"
+    "package": "cross-env-shell ELECTRON_RUN_AS_NODE= npm run build:prod:all && electron-builder --dir",
+    "release": "cross-env-shell ELECTRON_RUN_AS_NODE= npm run build:prod:all && electron-builder",
+    "release:mac": "cross-env-shell ELECTRON_RUN_AS_NODE= npm run build:prod:all && electron-builder --mac",
+    "release:win": "cross-env-shell ELECTRON_RUN_AS_NODE= npm run build:prod:all && electron-builder --win",
+    "release:linux": "cross-env-shell ELECTRON_RUN_AS_NODE= npm run build:prod:all && electron-builder --linux"
   },
   "private": true,
   "dependencies": {
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^22.0.3",
+    "@angular/animations": "^22.0.3",
     "@angular/cdk": "^22.0.3",
     "@angular/cli": "^22.0.3",
     "@angular/common": "^22.0.3",
@@ -47,6 +48,7 @@
     "@types/jasmine": "^5.1.8",
     "@types/node": "^22.15.0",
     "@types/webpack": "^5.28.5",
+    "cross-env": "^10.0.0",
     "electron": "^43.0.0",
     "electron-builder": "^26.0.12",
     "eslint": "^9.28.0",
