@@ -83,6 +83,12 @@
   height: 20px !important;
   min-width: 20px;
   overflow: visible !important;
+  transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1);
+  transform: rotate(0deg);
+}
+
+.expand-icon.rotated {
+  transform: rotate(180deg);
 }
 
 .menu-list-item .mdc-list-item__end,
@@ -96,4 +102,34 @@
   padding-left: 12px;
   border-left: 2px solid var(--midleo-border);
   margin-left: 20px;
+}
+
+.children-enter {
+  animation: children-enter 200ms ease-out;
+}
+
+.children-leave {
+  animation: children-leave 150ms ease-in forwards;
+}
+
+@keyframes children-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes children-leave {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
 }

@@ -1,11 +1,12 @@
 import { ipcMain, safeStorage } from 'electron';
 import { promises as fs } from 'node:fs';
 import { IPC_CHANNELS } from '../shared/ipc-channels';
+import { assertJavaRuntimeReady, buildJavaArgs, type JavaRuntime } from './jar-path';
 
 interface HandlerContext {
   appHome: string;
   qmListPath: string;
-  jarPath: string;
+  javaRuntime: JavaRuntime;
   execFileAsync: (
     file: string,
     args: readonly string[],
@@ -134,13 +135,10 @@ export function registerIpcHandlers(ctx: HandlerContext): void {
 
     JSON.parse(payload);
 
-    try {
-      await fs.access(ctx.jarPath);
-    } catch {
-      throw new Error(`midleo.jar not found at ${ctx.jarPath}`);
-    }
+    await assertJavaRuntimeReady(ctx.javaRuntime);
 
-    const { stdout, stderr } = await ctx.execFileAsync('java', ['-jar', ctx.jarPath, payload], {
+    const javaArgs = buildJavaArgs(ctx.javaRuntime, payload);
+    const { stdout, stderr } = await ctx.execFileAsync('java', javaArgs, {
       maxBuffer: 50 * 1024 * 1024,
       timeout: 120_000,
     });

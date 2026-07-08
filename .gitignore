@@ -46,3 +46,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Licensed JARs (not shipped; see resources/README.md)
+/resources/*.jar
+/resources/midleolibs/libs/*.jar
+/resources/midleolibs/vendor/*.jar

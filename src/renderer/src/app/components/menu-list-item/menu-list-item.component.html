@@ -16,13 +16,13 @@
     *ngIf="item.children?.length"
     matListItemMeta
     fontIcon="expand_more"
-    [@indicatorRotate]="expanded ? 'expanded' : 'collapsed'"
+    [class.rotated]="expanded"
     class="expand-icon"
     aria-hidden="true">
   </mat-icon>
 </a>
 
-<div *ngIf="expanded && item.children?.length" class="children-container" @expandCollapse>
+<div *ngIf="expanded && item.children?.length" class="children-container" animate.enter="children-enter" animate.leave="children-leave">
   <app-menu-list-item
     *ngFor="let child of item.children; let j = index; trackBy: trackByQmName"
     [item]="child"

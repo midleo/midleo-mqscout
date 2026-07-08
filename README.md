@@ -5,12 +5,30 @@ Enterprise desktop explorer for IBM MQ queue managers. Built with **Electron 43*
 ## Prerequisites
 
 - Node.js 22+
-- Java runtime (for `midleo.jar`)
-- IBM MQ client libraries (required by `midleo.jar`)
+- Java 21+ runtime
+- Licensed Java artifacts in `~/.midleo/` (see below)
 
-## Getting started
+## Licensed Java files
 
-1. Download the latest `midleo.jar` from [GitLab](https://gitlab.com/vasilev.link/public/-/tree/master/java/midleo_mq) into `~/.midleo/`.
+MQScout requires proprietary JAR that is **not** included in the open-source repository or installer. Contact [vasilev.link](https://vasilev.link) for licensed distribution.
+
+Place the following under `~/.midleo/` (same folder as `qmgrlist.json`):
+
+```
+~/.midleo/
+  qmgrlist.json
+  midleo.jar
+  midleolibs/
+    libs/                 # gson, json-*, etc.
+    vendor/
+      com.ibm.mq.allclient.jar
+```
+
+The `resources/` folder in this repo shows the expected layout as documentation only — files there are **not** bundled into the app.
+
+## Getting started (development)
+
+1. Obtain `midleo.jar` and populate `~/.midleo/midleolibs/` (see [resources/README.md](resources/README.md) for structure).
 2. Install dependencies and build:
 
 ```bash
@@ -20,6 +38,8 @@ npm start
 ```
 
 ## Production release
+
+The installer contains only the Electron/Angular app. Users must place licensed JARs in `~/.midleo/` manually.
 
 ```bash
 npm run release        # package for current OS
@@ -65,3 +85,11 @@ env -u ELECTRON_RUN_AS_NODE npm start
 ### npm `allowScripts` warnings
 
 Dependency install scripts are gated by the `allowScripts` field in `package.json`. This repo approves the packages required for esbuild, Angular, and electron-builder. After pulling changes, run `npm install` once; no extra approval steps are needed.
+
+### Java / MQ connection errors
+
+Ensure `~/.midleo/midleo.jar` exists. You can obtain `midleo.jar` from [vasilev.link](https://vasilev.link).
+
+Vendor libraries, including `~/.midleo/midleolibs/vendor/com.ibm.mq.allclient.jar`, must be provided by the client from their own licensed IBM MQ installation or licensed software distribution.
+
+Verify Java 21+ is on your `PATH`.
