@@ -8,20 +8,28 @@ Open-source desktop explorer for IBM® MQ queue managers. Built with **Electron 
 
 ## Overview
 
-MQScout provides a desktop UI for browsing and working with IBM MQ queue managers. The open-source repository contains the Electron/Angular desktop application only.
+MQScout provides a desktop UI for browsing and working with IBM MQ queue managers.
 
-The application expects separate Java runtime components to be present on the user’s machine. These Java components are **not included** in this repository and are **not bundled** in the installer.
+This repository contains the open-source Electron/Angular desktop application only. The application expects separate Java runtime components to be present on the user’s machine. Those Java components are **not included** in this repository and are **not bundled** in MQScout installers.
 
 ## Prerequisites
 
+### For running MQScout
+
+* Java 21+ runtime on `PATH`
+* MQScout runtime files in `~/.midleo/`
+* Access to an IBM MQ environment
+* IBM MQ client software obtained under your organization’s applicable IBM license terms
+
+### For development
+
 * Node.js 22+
 * Java 21+ runtime on `PATH`
-* MQScout Java runtime files in `~/.midleo/`
-* Access to an IBM MQ environment and any IBM MQ client software required by your organization’s IBM license terms
+* MQScout runtime files in `~/.midleo/`
 
 ## Required runtime files
 
-MQScout requires external Java artifacts that are not part of this open-source repository.
+MQScout requires external Java runtime artifacts that are not part of this open-source repository.
 
 Place the files under `~/.midleo/`:
 
@@ -30,20 +38,24 @@ Place the files under `~/.midleo/`:
   qmgrlist.json
   midleo.jar
   midleolibs/
-    libs/                 # third-party Java libraries required by midleo.jar
+    libs/                 # runtime libraries required by midleo.jar
     vendor/
       com.ibm.mq.allclient.jar
 ```
 
 ### `midleo.jar`
 
-`midleo.jar` is a separate Midleo runtime component. It is not open-source, is not licensed under GPL-3.0, and is not included in this repository or in MQScout installers.
+`midleo.jar` is a separate Midleo runtime component.
+
+It is not open-source, is not licensed under GPL-3.0-or-later, and is not included in this repository or in MQScout installers.
 
 Obtain it separately from Midleo under the applicable Midleo license terms.
 
 ### IBM MQ client JAR
 
-`com.ibm.mq.allclient.jar` is IBM MQ client software. It is not included in this repository or in MQScout installers.
+`com.ibm.mq.allclient.jar` is IBM MQ client software.
+
+It is not included in this repository or in MQScout installers.
 
 Users must obtain IBM MQ client software from their own licensed IBM MQ installation, IBM’s published Maven artifacts, or IBM redistributable packages, subject to the applicable IBM license terms.
 
@@ -53,21 +65,19 @@ Do not commit, bundle, package, or redistribute IBM MQ client files with MQScout
 
 Any additional Java libraries placed under `~/.midleo/midleolibs/libs/` remain subject to their own license terms.
 
-Before distributing any build that includes Java libraries, verify license compatibility and include required third-party notices.
+Before distributing any build that includes Java libraries, verify license compatibility and include all required third-party notices.
 
 ## Repository layout
 
 ```text
 .
-├── resources/             # documented runtime layout only; not bundled
-├── src/                   # Angular renderer source
-├── electron/              # Electron main/preload source
-├── release-builds/        # generated installers
+├── github.assets/          # README images and GitHub assets
+├── src/                    # Angular renderer source
+├── electron/               # Electron main/preload source
+├── release-builds/         # generated installers
 ├── package.json
 └── LICENSE
 ```
-
-The `resources/` folder documents the expected runtime-file layout. It must not contain proprietary or third-party runtime JARs unless their licenses permit redistribution.
 
 ## Getting started
 
@@ -78,7 +88,7 @@ The `resources/` folder documents the expected runtime-file layout. It must not 
 java -version
 ```
 
-3. Create the runtime directory:
+3. Create the runtime directories:
 
 ```bash
 mkdir -p ~/.midleo/midleolibs/libs
@@ -102,6 +112,8 @@ npm start
 
 ## Development
 
+Build and start MQScout:
+
 ```bash
 npm run build:dev:all
 npm start
@@ -123,6 +135,7 @@ It does **not** include:
 * `com.ibm.mq.allclient.jar`
 * IBM MQ runtime files
 * proprietary Java artifacts
+* third-party Java runtime artifacts from `~/.midleo/`
 
 Build installers with:
 
@@ -139,6 +152,8 @@ Installers are written to:
 release-builds/
 ```
 
+If you distribute MQScout binaries or installers, provide the corresponding source code for the exact distributed version, including any modifications, as required by GPL-3.0-or-later.
+
 ## Security
 
 * Renderer runs with **context isolation** and **sandbox** enabled.
@@ -146,6 +161,7 @@ release-builds/
 * Java/MQ commands are executed with `execFile` and do not use shell interpolation.
 * SSL passwords are encrypted at rest with Electron `safeStorage` when available.
 * MQScout does not download or install IBM MQ client software automatically.
+* MQScout does not bundle proprietary Java runtime files.
 
 ## NPM scripts
 
@@ -160,11 +176,19 @@ release-builds/
 
 ## License
 
-This repository is licensed under **GPL-3.0**. See [LICENSE](LICENSE).
+This repository is licensed under **GPL-3.0-or-later**. See [LICENSE](LICENSE).
 
-The GPL-3.0 license applies to the source code and binaries built from this repository. It does not grant rights to IBM MQ, `com.ibm.mq.allclient.jar`, `midleo.jar`, or any other separately supplied proprietary or third-party runtime components.
+The GPL-3.0-or-later license applies to the source code and binaries built from this repository. It does not grant rights to IBM MQ, `com.ibm.mq.allclient.jar`, `midleo.jar`, or any other separately supplied proprietary or third-party runtime components.
 
-If you distribute modified versions of MQScout, you are responsible for complying with GPL-3.0 and with all applicable third-party dependency licenses.
+If you distribute modified versions of MQScout, you are responsible for complying with GPL-3.0-or-later and with all applicable third-party dependency licenses.
+
+## Third-party and proprietary components
+
+MQScout may interact with separately installed runtime components, including IBM MQ client software and Midleo runtime artifacts.
+
+Those components are not licensed by this repository and are not covered by the GPL-3.0-or-later license granted here.
+
+Before redistributing any build, package, archive, installer, or runtime bundle that contains third-party or proprietary components, verify that you have the right to redistribute those components and include all required license notices.
 
 ## Trademark notice
 
