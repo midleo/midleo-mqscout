@@ -4,7 +4,7 @@ Open-source desktop explorer for IBM® MQ queue managers. Built with **Electron 
 
 > MQScout is not affiliated with, endorsed by, or sponsored by IBM.
 
-![MQScout queue overview](docs/images/mqscout-queue-overview.png)
+![MQScout Browse messages](github.assets/mqscout_browse.jpg)
 
 ## Overview
 
